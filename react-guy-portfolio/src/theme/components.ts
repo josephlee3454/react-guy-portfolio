@@ -1,13 +1,27 @@
 import type { Components, Theme } from '@mui/material/styles';
+import type {} from '@mui/material/themeCssVarsAugmentation';
 import { geometry, rootCssVars, rootCssVarsCompact } from './tokens';
+
+/*
+ * Read colours through `theme.vars.palette.*`, never `theme.palette.*`.
+ *
+ * With colorSchemes configured, `theme.palette.X` returns the DEFAULT scheme's
+ * literal value — a hex that is baked in and never changes. `theme.vars.palette.X`
+ * returns `var(--mui-palette-X)`, which is what actually follows the active
+ * scheme. Getting this wrong pins the styled element to dark while every
+ * `sx={{ color: 'text.primary' }}` elsewhere flips, which shows up as light text
+ * on light tiles.
+ */
 
 export const components: Components<Omit<Theme, 'components'>> = {
   MuiCssBaseline: {
     styleOverrides: (theme) => ({
-      ':root': {
-        ...rootCssVars,
-        colorScheme: 'dark',
-      },
+      /*
+       * Geometry only. `colorScheme` is emitted by MUI's colour-scheme machinery
+       * (cssVariables + colorSchemes), so setting it here would pin the whole
+       * document to dark and defeat the media query.
+       */
+      ':root': rootCssVars,
       [theme.breakpoints.down('sm')]: {
         ':root': rootCssVarsCompact,
       },
@@ -16,8 +30,8 @@ export const components: Components<Omit<Theme, 'components'>> = {
       'html, body': { margin: 0, padding: 0 },
 
       body: {
-        backgroundColor: theme.palette.background.default,
-        color: theme.palette.text.primary,
+        backgroundColor: theme.vars.palette.background.default,
+        color: theme.vars.palette.text.primary,
         fontFamily: theme.typography.fontFamily,
         // --gap is the page padding as well as the grid gap
         padding: theme.spacing(1),
@@ -33,15 +47,15 @@ export const components: Components<Omit<Theme, 'components'>> = {
       // Spec §5: a focus ring on every link. next/link renders a bare <a>,
       // so this targets elements rather than MUI classes.
       'a:focus-visible, button:focus-visible, [tabindex]:focus-visible': {
-        outline: `2px solid ${theme.palette.primary.main}`,
+        outline: `2px solid ${theme.vars.palette.accentInk}`,
         outlineOffset: 3,
         borderRadius: 8,
       },
       'a:focus:not(:focus-visible)': { outline: 'none' },
 
       '::selection': {
-        background: theme.palette.primary.main,
-        color: theme.palette.primary.contrastText,
+        background: theme.vars.palette.primary.main,
+        color: theme.vars.palette.primary.contrastText,
       },
 
       img: { maxWidth: '100%', display: 'block' },
@@ -63,7 +77,7 @@ export const components: Components<Omit<Theme, 'components'>> = {
   /**
    * MUI paints a white-alpha gradient over dark-mode surfaces, one step per
    * elevation. Left on, it lightens every tile above its token value and
-   * collapses --tile and --tile-2 toward each other.
+   * collapses `surface` and `surface.raised` toward each other.
    */
   MuiPaper: {
     defaultProps: { elevation: 0 },
@@ -76,7 +90,7 @@ export const components: Components<Omit<Theme, 'components'>> = {
       root: ({ theme }) => ({
         transition: theme.transitions.create(['color', 'border-color']),
         '&:focus-visible': {
-          outline: `2px solid ${theme.palette.primary.main}`,
+          outline: `2px solid ${theme.vars.palette.accentInk}`,
           outlineOffset: 3,
           borderRadius: 8,
         },
@@ -93,7 +107,7 @@ export const components: Components<Omit<Theme, 'components'>> = {
     styleOverrides: {
       root: { borderRadius: geometry.pill, padding: '12px 22px' },
       contained: ({ theme }) => ({
-        '&:hover': { backgroundColor: theme.palette.primary.light },
+        '&:hover': { backgroundColor: theme.vars.palette.primary.light },
       }),
     },
   },
@@ -104,16 +118,22 @@ export const components: Components<Omit<Theme, 'components'>> = {
   MuiOutlinedInput: {
     styleOverrides: {
       root: ({ theme }) => ({
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: theme.vars.palette.background.default,
+        // Spec §8: in light mode the page background is close enough to the
+        // tile that a field filled with it disappears. surface-2 keeps the
+        // input readable as an input.
+        ...theme.applyStyles('light', {
+          backgroundColor: theme.vars.palette.surface.raised,
+        }),
         borderRadius: 12,
         fontSize: 15,
-        '& .MuiOutlinedInput-notchedOutline': { borderColor: theme.palette.divider },
+        '& .MuiOutlinedInput-notchedOutline': { borderColor: theme.vars.palette.divider },
         '&:hover .MuiOutlinedInput-notchedOutline': {
-          borderColor: theme.palette.surface.lineHover,
+          borderColor: theme.vars.palette.surface.borderHover,
         },
         '&.Mui-focused .MuiOutlinedInput-notchedOutline': { border: 0 },
         '&.Mui-focused': {
-          outline: `2px solid ${theme.palette.primary.main}`,
+          outline: `2px solid ${theme.vars.palette.accentInk}`,
           outlineOffset: 2,
         },
       }),

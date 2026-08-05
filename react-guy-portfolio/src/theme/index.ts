@@ -2,7 +2,8 @@
 
 import type { CSSProperties } from 'react';
 import { createTheme } from '@mui/material/styles';
-import { breakpointValues, columns, geometry, tokens } from './tokens';
+import type {} from '@mui/material/themeCssVarsAugmentation';
+import { breakpointValues, columns, dark, geometry, light, shared } from './tokens';
 import { typography } from './typography';
 import { components } from './components';
 
@@ -14,32 +15,38 @@ import { components } from './components';
  */
 declare module '@mui/material/styles' {
   interface SurfaceColors {
-    /** --tile-2: marquee and post-row hover fill */
+    /** --surface-2: marquee, post-row hover, light-mode form fields */
     raised: string;
-    /** tile border on hover */
-    lineHover: string;
+    /** Tile border on hover */
+    borderHover: string;
+  }
+  interface HeroColors {
+    bg: string;
+    border: string;
+    text: string;
+    muted: string;
   }
   interface Palette {
     surface: SurfaceColors;
+    hero: HeroColors;
+    /** The accent used AS TEXT. Never use primary.main for text — see tokens.ts. */
+    accentInk: string;
   }
   interface PaletteOptions {
     surface?: SurfaceColors;
+    hero?: HeroColors;
+    accentInk?: string;
   }
 
   interface LayoutTokens {
-    /** var(--r) — 26px, drops to 20px at <=620px */
     radius: string;
-    /** var(--pad) — 28px, drops to 22px at <=620px */
     padding: string;
-    /** var(--gap) — grid gap and page padding */
     gap: string;
     pillRadius: string;
     arrowSize: number;
-    /** CTA tile only */
     arrowSizeLarge: number;
     columns: { desktop: number; tablet: number; mobile: number };
     marqueeDuration: string;
-    /** tile hover lift */
     lift: string;
   }
   interface Theme {
@@ -78,38 +85,79 @@ declare module '@mui/material/Typography' {
   }
 }
 
+const heroPalette = {
+  bg: shared.heroBg,
+  border: shared.heroBorder,
+  text: shared.heroText,
+  muted: shared.heroMuted,
+};
+
+const accentPalette = {
+  main: shared.accent,
+  light: shared.accentSoft,
+  dark: shared.accent,
+  /*
+   * Spec §1 and §8: text on the amber is near-black, never white.
+   * #14181A on #FF7A18 is 6.9:1; white on it is 2.6:1. Pinning this makes every
+   * primary-coloured surface correct by default instead of by discipline.
+   */
+  contrastText: shared.onAccent,
+};
+
 /**
- * `cssVariables` is deliberately NOT enabled.
+ * `cssVariables` IS enabled here, and that is a reversal.
  *
- * It would emit a second parallel custom-property system (--mui-palette-* )
- * carrying the same values as the design's own --ink/--tile/--r, which is the
- * exact duplication this theme is structured to avoid. Its real benefit is
- * flicker-free colour-scheme switching, and this site has one scheme.
+ * With one colour scheme it only bought a second parallel var system carrying
+ * duplicate values, so it was off. With two schemes it is the mechanism: MUI
+ * emits both palettes as custom properties and swaps them at the selector, so
+ * every `sx={{ color: 'text.secondary' }}` in the app follows the active scheme
+ * with no component change and no re-render.
+ *
+ * `colorSchemeSelector: 'media'` makes that swap a pure `@media
+ * (prefers-color-scheme: light)` block. Consequences, all of them wanted here:
+ *
+ *   - Detection is the browser's, so there is no flash and no blocking script.
+ *   - `defaultColorScheme: 'dark'` is what `:root` gets, so a browser that
+ *     reports no preference — or does not support the query at all — lands on
+ *     dark, which is the requested fallback.
+ *   - There is no in-session toggle. The mockup has one (spec §8); adding it
+ *     means switching this to 'class' and storing the choice. See the note in
+ *     ThemeRegistry.
  */
 export const theme = createTheme({
-  breakpoints: { values: breakpointValues },
-  // spacing(1) = 14px = --gap;  spacing(2) = 28px = --pad.
-  // The spec's "--pad is exactly 2x gap" becomes a property of the scale.
-  spacing: geometry.gap,
-  // For MUI's own popovers and menus, which are not design surfaces and
-  // never need the responsive shift that var(--r) provides.
-  shape: { borderRadius: geometry.radius },
-  palette: {
-    mode: 'dark',
-    primary: {
-      main: tokens.accent,
-      light: tokens.accentSoft,
-      dark: tokens.accent,
-      // Spec §1: text on the amber is --ink, never white.
-      // #0F1211 on #FF7A18 is 7.18:1; white on it is 2.63:1.
-      // Pinning this makes every primary-coloured surface correct by default.
-      contrastText: tokens.ink,
+  cssVariables: { colorSchemeSelector: 'media' },
+  defaultColorScheme: 'dark',
+  colorSchemes: {
+    dark: {
+      palette: {
+        primary: accentPalette,
+        background: { default: dark.bg, paper: dark.surface },
+        divider: dark.border,
+        text: { primary: dark.text, secondary: dark.textMuted, disabled: dark.dim },
+        surface: { raised: dark.surface2, borderHover: dark.borderHover },
+        hero: heroPalette,
+        accentInk: dark.accentInk,
+      },
     },
-    background: { default: tokens.ink, paper: tokens.tile },
-    divider: tokens.line,
-    text: { primary: tokens.bone, secondary: tokens.muted, disabled: tokens.dim },
-    surface: { raised: tokens.tile2, lineHover: tokens.lineHover },
+    light: {
+      palette: {
+        primary: accentPalette,
+        background: { default: light.bg, paper: light.surface },
+        divider: light.border,
+        text: { primary: light.text, secondary: light.textMuted, disabled: light.dim },
+        surface: { raised: light.surface2, borderHover: light.borderHover },
+        hero: heroPalette,
+        accentInk: light.accentInk,
+      },
+    },
   },
+  breakpoints: { values: breakpointValues },
+  // spacing(1) = 14px = the grid gap;  spacing(2) = 28px = tile padding.
+  // The spec's "pad is exactly 2x gap" becomes a property of the scale.
+  spacing: geometry.gap,
+  // For MUI's own popovers and menus, which are not design surfaces and never
+  // need the responsive shift that var(--r) provides.
+  shape: { borderRadius: geometry.radius },
   layout: {
     radius: 'var(--r)',
     padding: 'var(--pad)',
@@ -119,7 +167,7 @@ export const theme = createTheme({
     arrowSizeLarge: geometry.arrowLarge,
     columns,
     marqueeDuration: '26s',
-    lift: '-3px',
+    lift: geometry.lift,
   },
   transitions: {
     // .25s ease / .2s ease in the mockup

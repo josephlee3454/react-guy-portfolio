@@ -2,7 +2,7 @@ import type { MouseEventHandler, ReactNode } from 'react';
 import { AppLink } from './AppLink';
 import Box from '@mui/material/Box';
 import type { SxProps, Theme } from '@mui/material/styles';
-import { fonts, geometry, tokens } from '@/theme/tokens';
+import { fonts, geometry } from '@/theme/tokens';
 
 /*
  * No 'use client' here on purpose.
@@ -110,7 +110,7 @@ const chipStyles = (active: boolean, interactive: boolean) => ({
     // The global ring in components.ts forces border-radius:8px, which reads
     // as a rounded rectangle around a pill. Restated here at the pill radius.
     '&:focus-visible': {
-      outline: `2px solid ${tokens.accent}`,
+      outline: '2px solid var(--mui-palette-accentInk)',
       outlineOffset: 2,
       borderRadius: PILL_RADIUS,
     },

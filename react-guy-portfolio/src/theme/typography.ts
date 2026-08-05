@@ -1,7 +1,7 @@
 // v9 does not expose the `styles/createTypography` subpath in its exports map.
 // `TypographyVariantsOptions` is the public equivalent, re-exported from the root.
 import type { TypographyVariantsOptions } from '@mui/material/styles';
-import { fonts, tokens } from './tokens';
+import { fonts } from './tokens';
 
 /** Bricolage Grotesque — h1, tile h2, stat numbers, marquee. */
 const display = { fontFamily: fonts.display } as const;
@@ -16,7 +16,7 @@ const mono = {
   fontFamily: fonts.mono,
   fontWeight: 400,
   textTransform: 'uppercase' as const,
-  color: tokens.muted,
+  color: 'var(--mui-palette-text-secondary)',
 };
 
 export const typography: TypographyVariantsOptions = {
@@ -89,11 +89,11 @@ export const typography: TypographyVariantsOptions = {
 
   // ---------- body ----------
   /** Page lede. */
-  subtitle1: { fontSize: 16, lineHeight: 1.65, color: tokens.muted },
+  subtitle1: { fontSize: 16, lineHeight: 1.65, color: 'var(--mui-palette-text-secondary)' },
   /** Hero bio, form inputs. 15px is the spec's accessibility floor. */
   body1: { fontSize: 15, lineHeight: 1.6 },
   /** Card, post, and timeline copy. */
-  body2: { fontSize: 14, lineHeight: 1.6, color: tokens.muted },
+  body2: { fontSize: 14, lineHeight: 1.6, color: 'var(--mui-palette-text-secondary)' },
   button: { fontSize: 14, fontWeight: 500, textTransform: 'none', letterSpacing: 0 },
 
   // ---------- utility ----------

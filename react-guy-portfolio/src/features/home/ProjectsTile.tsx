@@ -43,6 +43,12 @@ export const ProjectsTile = ({ eyebrow, title, href }: TileLink) => {
           right: 0,
           height: '58%',
           background: 'linear-gradient(150deg, #25302E, #151918)',
+          // Spec §8 / styles.css:336 — the dark placeholder gradient is swapped
+          // outright here rather than filtered, because this thumb sits directly
+          // on a tile with no border to separate them.
+          '@media (prefers-color-scheme: light)': {
+            background: 'linear-gradient(150deg, #E4DFD2, #F4F1E9)',
+          },
           borderBottom: '1px solid',
           borderColor: 'divider',
         }}

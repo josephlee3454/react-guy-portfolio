@@ -25,6 +25,10 @@ export const AboutPortrait = ({ src, alt }: AboutPortraitProps) => {
         // (styles.css:293). minHeight is a scalar prop on Tile, so the
         // responsive pair is set here instead.
         minHeight: { xs: 340, md: 460 },
+        // Spec §8: like the hero, this tile stays dark in both schemes — the
+        // portrait is the same cross-processed photo and needs the same anchor.
+        backgroundColor: 'hero.bg',
+        borderColor: 'hero.border',
       }}
     >
       {/*
