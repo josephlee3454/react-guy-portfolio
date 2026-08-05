@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Joseph Lee &mdash; Full stack engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<nav class="nav">
+  <a class="brand" href="index.html">josephlee<span>.</span></a>
+  <ul class="nav-links"><li><a href="index.html" aria-current="page">Home</a></li><li><a href="about.html">About</a></li><li><a href="work.html">Work</a></li><li><a href="testimonials.html">Testimonials</a></li><li><a href="writing.html">Writing</a></li><li><a href="contact.html">Contact</a></li></ul>
+  <div class="nav-right">
+    <button class="theme-toggle" type="button" aria-label="Switch theme">&#9728;</button>
+    <a class="nav-cta" href="contact.html">Start here</a>
+  </div>
+</nav>
+<main class="bento">
+  <a class="tile hero" href="about.html">
+    <div class="portrait" role="img" aria-label="Portrait of Joseph Lee"></div>
+    <div class="hero-copy">
+      <p class="eyebrow">Full stack engineer</p>
+      <h1>Joseph Lee<em>.</em></h1>
+      <p>I write the GraphQL API and the React that consumes it. Five years across the
+      stack &mdash; Java services at Amazon, now NestJS, PostgreSQL and React at
+      Alphaledger. Seattle, open to new roles.</p>
+    </div>
+    <span class="arrow" aria-hidden="true">&#8599;</span>
+  </a>
+
+  <a class="tile credentials" href="about.html">
+    <p class="eyebrow">Amazon &middot; Alphaledger</p>
+    <h2>Experience</h2>
+    <span class="arrow" aria-hidden="true">&#8599;</span>
+  </a>
+
+  <a class="tile projects" href="work.html">
+    <div class="thumb"></div>
+    <p class="eyebrow">What I&rsquo;ve shipped</p>
+    <h2>Selected work</h2>
+    <span class="arrow" aria-hidden="true">&#8599;</span>
+  </a>
+
+  <a class="tile writing" href="writing.html">
+    <p class="eyebrow">Notes</p>
+    <h2>Writing</h2>
+    <span class="arrow" aria-hidden="true">&#8599;</span>
+  </a>
+
+  <a class="tile services" href="about.html#stack">
+    <p class="eyebrow">What I work in</p>
+    <h2>Stack</h2>
+    <span class="arrow" aria-hidden="true">&#8599;</span>
+  </a>
+
+  <a class="tile profiles" href="contact.html">
+    <div class="social-row"><span>LI</span><span>GH</span></div>
+    <p class="eyebrow">Find me elsewhere</p>
+    <h2>Profiles</h2>
+    <span class="arrow" aria-hidden="true">&#8599;</span>
+  </a>
+
+  <div class="tile stats" style="justify-content:flex-end">
+    <p class="eyebrow">Currently</p>
+    <h2 style="padding-right:0">Software Developer at Alphaledger</h2>
+    <p style="color:var(--text-muted);font-size:14px;line-height:1.65;margin:12px 0 0;max-width:48ch">
+      Enterprise blockchain for municipal bond issuance and trading. GraphQL, PostgreSQL
+      and React, in roughly equal measure. Open to new roles.</p>
+  </div>
+
+  <div class="marquee">
+    <div class="marquee-track">
+      <p>React <i>&#10022;</i> GraphQL <i>&#10022;</i> NestJS <i>&#10022;</i> PostgreSQL <i>&#10022;</i> Java <i>&#10022;</i> AWS Lambda <i>&#10022;</i> TypeScript <i>&#10022;</i></p>
+      <p>React <i>&#10022;</i> GraphQL <i>&#10022;</i> NestJS <i>&#10022;</i> PostgreSQL <i>&#10022;</i> Java <i>&#10022;</i> AWS Lambda <i>&#10022;</i> TypeScript <i>&#10022;</i></p>
+      <p>React <i>&#10022;</i> GraphQL <i>&#10022;</i> NestJS <i>&#10022;</i> PostgreSQL <i>&#10022;</i> Java <i>&#10022;</i> AWS Lambda <i>&#10022;</i> TypeScript <i>&#10022;</i></p>
+      <p>React <i>&#10022;</i> GraphQL <i>&#10022;</i> NestJS <i>&#10022;</i> PostgreSQL <i>&#10022;</i> Java <i>&#10022;</i> AWS Lambda <i>&#10022;</i> TypeScript <i>&#10022;</i></p>
+    </div>
+  </div>
+
+  <a class="tile cta" href="contact.html">
+    <h2>So what are we building?</h2>
+    <span class="arrow" aria-hidden="true">&#8599;</span>
+  </a>
+</main>
+<footer class="foot">
+  <span>&copy; 2026 Joseph Lee</span>
+  <span><a href="index.html">Home</a> &middot; <a href="about.html">About</a> &middot; <a href="work.html">Work</a> &middot; <a href="testimonials.html">Testimonials</a> &middot; <a href="writing.html">Writing</a> &middot; <a href="contact.html">Contact</a></span>
+  <span>joseph.lee3454@gmail.com</span>
+</footer>
+<script>
+(function(){
+  var root=document.documentElement, btn=document.querySelector('.theme-toggle');
+  function set(t){root.setAttribute('data-theme',t);btn.textContent=t==='light'?'\u263E':'\u2600';
+    btn.setAttribute('aria-label','Switch to '+(t==='light'?'dark':'light')+' theme');}
+  set(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  btn.addEventListener('click',function(){
+    set(root.getAttribute('data-theme')==='light'?'dark':'light');});
+})();
+</script>
+</body>
+</html>

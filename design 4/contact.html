@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact &mdash; Joseph Lee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<nav class="nav">
+  <a class="brand" href="index.html">josephlee<span>.</span></a>
+  <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="work.html">Work</a></li><li><a href="testimonials.html">Testimonials</a></li><li><a href="writing.html">Writing</a></li><li><a href="contact.html" aria-current="page">Contact</a></li></ul>
+  <div class="nav-right">
+    <button class="theme-toggle" type="button" aria-label="Switch theme">&#9728;</button>
+    <a class="nav-cta" href="contact.html">Start here</a>
+  </div>
+</nav>
+<main class="bento">
+  <div class="page-head">
+    <h1>So what are<br>we building<em>?</em></h1>
+    <p class="lede">Hiring, or just want to argue about GraphQL resolver design and whether
+    AG Grid was the right call &mdash; either is welcome.</p>
+  </div>
+
+  <div class="tile s7">
+    <label class="field"><span>Your name</span><input type="text" placeholder="Jane Okafor"></label>
+    <label class="field"><span>Email</span><input type="email" placeholder="jane@company.com"></label>
+    <label class="field"><span>What&rsquo;s this about</span>
+      <select><option>A full-time role</option><option>Contract work</option>
+      <option>Technical question</option><option>Something else</option></select>
+    </label>
+    <label class="field"><span>Message</span>
+      <textarea placeholder="The role, the team, and what the first six months would look like."></textarea></label>
+    <button class="submit" type="button">Send it</button>
+  </div>
+
+  <div class="tile s5">
+    <div>
+      <p class="eyebrow">Availability</p>
+      <div class="status"><i></i> Open to new roles</div>
+    </div>
+    <div style="margin-top:26px">
+      <p class="eyebrow">Email</p>
+      <a class="big-link" href="mailto:joseph.lee3454@gmail.com">joseph.lee3454@gmail.com</a>
+    </div>
+    <div style="margin-top:26px">
+      <p class="eyebrow">LinkedIn</p>
+      <a class="big-link" style="font-size:19px" href="https://www.linkedin.com/in/joseph-lee-600599b9">linkedin.com/in/joseph-lee</a>
+    </div>
+    <div style="margin-top:26px">
+      <p class="eyebrow">GitHub</p>
+      <p style="margin:0;font-size:14px;color:var(--text-muted);font-family:var(--mono);letter-spacing:.06em">&#9888; ADD HANDLE</p>
+    </div>
+    <div style="margin-top:26px">
+      <p class="eyebrow">Based in</p>
+      <p style="margin:0;font-size:15px;color:var(--text)">Seattle, WA &middot; Pacific Time</p>
+    </div>
+  </div>
+
+</main>
+<footer class="foot">
+  <span>&copy; 2026 Joseph Lee</span>
+  <span><a href="index.html">Home</a> &middot; <a href="about.html">About</a> &middot; <a href="work.html">Work</a> &middot; <a href="testimonials.html">Testimonials</a> &middot; <a href="writing.html">Writing</a> &middot; <a href="contact.html">Contact</a></span>
+  <span>joseph.lee3454@gmail.com</span>
+</footer>
+<script>
+(function(){
+  var root=document.documentElement, btn=document.querySelector('.theme-toggle');
+  function set(t){root.setAttribute('data-theme',t);btn.textContent=t==='light'?'\u263E':'\u2600';
+    btn.setAttribute('aria-label','Switch to '+(t==='light'?'dark':'light')+' theme');}
+  set(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  btn.addEventListener('click',function(){
+    set(root.getAttribute('data-theme')==='light'?'dark':'light');});
+})();
+</script>
+</body>
+</html>
