@@ -4,7 +4,14 @@ import { PageShell } from '@/components/PageShell';
 import { ContactForm } from '@/features/contact/ContactForm';
 import { ContactHead } from '@/features/contact/ContactHead';
 import { DirectDetails } from '@/features/contact/DirectDetails';
-import { contactHead, directDetails, formFields, submitLabel } from '@/content/contact';
+import {
+  contactHead,
+  directDetails,
+  formFields,
+  formStatus,
+  formspreeId,
+  submitLabel,
+} from '@/content/contact';
 
 export const metadata: Metadata = {
   title: 'Contact',
@@ -31,9 +38,11 @@ export const metadata: Metadata = {
  * a second ask that weakens the first. PageShell renders no CTA of its own, so
  * omitting it here is the whole mechanism.
  *
- * THE FORM IS MARKUP ONLY — no `action`, no `onSubmit`, no server action, no
- * validation, no API route (spec §7 and README-FOR-CLAUDE). See ContactForm,
- * which also explains why nothing here needs 'use client'.
+ * THE FORM POSTS TO FORMSPREE. It was markup-only while there was nowhere to
+ * send it; there now is. No API route and no server action are involved — the
+ * submission goes straight from the browser to Formspree, so nothing on this
+ * page handles or stores a message. ContactForm is the one client component
+ * here; this page, the head and the details tile all stay server-rendered.
  *
  * The h1 is `fixedCopy.ctaHeadline` broken across two lines with the question
  * mark as PageHead's amber accent — see contact.ts.
@@ -43,7 +52,14 @@ export const Contact = () => {
     <PageShell route="/contact">
       <ContactHead {...contactHead} />
 
-      <ContactForm fields={formFields} submitLabel={submitLabel} />
+      <ContactForm
+        fields={formFields}
+        submitLabel={submitLabel}
+        formId={formspreeId}
+        successTitle={formStatus.successTitle}
+        successBody={formStatus.successBody}
+        errorMessage={formStatus.errorMessage}
+      />
 
       <DirectDetails {...directDetails} />
     </PageShell>
