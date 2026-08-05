@@ -10,22 +10,28 @@ export interface AboutCredentialsProps {
 }
 
 /**
- * The credentials block. Row: 12.
+ * The experience block. Row: 12.
  *
- * `columns={2}` is this section's call, not Timeline's default — contact's
- * "before you write" steps use the same primitive at one column — so the
- * two-column layout is passed in from here.
+ * ONE column now, not two. This revision has three long entries rather than four
+ * short ones, and `.tl tl-1` in the mockup drops the multi-column flow — so
+ * Timeline's default of 1 is simply left alone.
+ *
+ * The marker gutter widens from Timeline's 96px to the `/* v5 *\/` block's 132px
+ * (styles.css:401), because "2024 – NOW" does not fit in 96. Timeline and
+ * TimelineItem take no sx, so the override is applied from the tile as a
+ * descendant selector: `.tile ol > li` is one class plus two type selectors,
+ * which outranks TimelineItem's own single-class rule regardless of the order
+ * emotion happens to insert them in. Only the `sm` band is set — below 620px
+ * TimelineItem collapses the gutter to `1fr` and there is nothing to widen.
  */
 export const AboutCredentials = ({ heading, entries }: AboutCredentialsProps) => {
   return (
-    <Tile span={12} arrow={false}>
+    <Tile span={12} arrow={false} sx={{ '& ol > li': { gridTemplateColumns: { sm: '132px 1fr' } } }}>
       <Eyebrow>{heading.eyebrow}</Eyebrow>
       <Typography variant="h2">{heading.title}</Typography>
-      <Timeline columns={2}>
-        {/* Keyed by position: the placeholder entries repeat, so no field of
-            the content is unique until real copy lands. The list is static. */}
-        {entries.map((entry, i) => (
-          <TimelineItem key={i} {...entry} />
+      <Timeline>
+        {entries.map((entry) => (
+          <TimelineItem key={entry.title} {...entry} />
         ))}
       </Timeline>
     </Tile>

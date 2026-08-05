@@ -48,8 +48,15 @@ export const dark = {
   accentInk: '#FF7A18',
   /** Tile border on hover. */
   borderHover: '#46504C',
-  /** Dimmed text: marquee inactive words, image-placeholder labels. */
-  dim: '#5E6663',
+  /**
+   * Dimmed text: marquee words, image-placeholder labels.
+   *
+   * DELIBERATE DEPARTURE FROM THE MOCKUP. styles.css hardcodes #5E6663, which
+   * measures 2.67:1 on `surface2` — under the 3:1 floor even for large text,
+   * and the marquee is the design's largest dim type. Raised to 3.73:1 while
+   * staying clearly dimmer than textMuted (5.08:1) so the hierarchy survives.
+   */
+  dim: '#767D79',
 } as const;
 
 export const light = {
@@ -67,12 +74,11 @@ export const light = {
   accentInk: '#B84E08',
   borderHover: '#B9B09A',
   /**
-   * The mockup hardcodes #5E6663 for this in both schemes (styles.css:142, 176,
-   * 256), which is a dark-scheme value — on `light.surface` it reads as ordinary
-   * body text rather than a dimmed label, losing the distinction from
-   * `textMuted`. Lightened here to sit between `textMuted` and `border`.
+   * The mockup reuses the dark #5E6663 here, which is 2.00:1 on `surface2` —
+   * the worst contrast in the design. Darkened rather than lightened: 3.20:1,
+   * clearing the large-text floor while staying dimmer than textMuted (3.98:1).
    */
-  dim: '#A5A091',
+  dim: '#787E72',
 } as const;
 
 export const geometry = {
