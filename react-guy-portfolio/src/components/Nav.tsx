@@ -1,10 +1,10 @@
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { fonts, geometry } from '@/theme/tokens';
-import { brand as siteBrand, ctaHref, fixedCopy, navItems } from '@/content/site';
+import { brand as siteBrand, navItems } from '@/content/site';
 import { AppLink } from './AppLink';
 import { MobileMenu } from './MobileMenu';
+import { StartHereButton } from './StartHereButton';
 
 export interface NavProps {
   /**
@@ -111,9 +111,7 @@ export const Nav = ({ route, brand = siteBrand, sx }: NavProps) => {
 
       <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
         <MobileMenu links={links} />
-        <Button component={AppLink} href={ctaHref}>
-          {fixedCopy.navCta}
-        </Button>
+        <StartHereButton />
       </Box>
     </Box>
   );

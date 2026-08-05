@@ -1,33 +1,23 @@
 /**
- * Site-wide content. Everything here is placeholder pending real copy.
+ * Site-wide text. Edit strings here — no component needs touching.
  *
- * This module has no 'use client' directive, so both server components and the
- * client-side Nav can import it — which is why the nav item list lives here
- * rather than inside Nav.tsx.
+ * Shapes live in ./types.ts. This module has no 'use client' directive, so both
+ * server components and the client-side MobileMenu can read it.
  */
 
-export interface NavItem {
-  label: string;
-  href: string;
-}
+import type { NavItem, SocialItem } from './types';
 
-export interface SocialItem {
-  label: string;
-  href?: string;
-}
+// ---------------------------------------------------------------- identity
 
-// TODO(copy): real brand mark. The trailing period is set in the component,
-// and is rendered in the accent colour.
-export const brand = 'yourname';
+/** Brand mark in the nav. The trailing period is added by the component, in amber. */
+export const brand = 'Joseph Lee';
 
 // TODO(copy): real email.
 export const email = 'hello@yourname.com';
 
-/**
- * Nav order is fixed by DESIGN_SPEC.md §7: Home · About · Work · Writing · Contact.
- * Every item points at a real page — the design has no dropdowns, no external
- * links, and no same-page anchors.
- */
+// ---------------------------------------------------------------- navigation
+
+/** Order is fixed by DESIGN_SPEC §7. Every item points at a real page. */
 export const navItems: NavItem[] = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
@@ -36,25 +26,26 @@ export const navItems: NavItem[] = [
   { label: 'Contact', href: '/contact' },
 ];
 
+/** Where the nav button and the CTA tile both point. */
+export const ctaHref = '/contact';
+
+// ---------------------------------------------------------------- fixed copy
+
 /**
- * Spec §4 fixed copy — do NOT swap these for generic equivalents.
- * Each was chosen for register and is documented in the spec.
+ * DESIGN_SPEC §4 chose each of these for register — swapping them for generic
+ * equivalents is a downgrade the spec calls out by name. Reasons are in the
+ * spec, not repeated here.
  */
 export const fixedCopy = {
-  /** Assumes the project is already happening rather than asking permission. */
   ctaHeadline: 'So what are we building?',
-  /** Matched to the CTA's register. Not "Let's talk". */
   navCta: 'Start here',
   heroEyebrow: 'FULL STACK ENGINEER',
-  /** Naming the shapes reads as choosing; "open to anything" reads as needing anything. */
   availability: "Open to full-time, contract, or the thing you haven't named yet.",
 } as const;
 
-/** The CTA tile appears on every page except contact — that page IS the CTA. */
-export const ctaHref = '/contact';
+// ---------------------------------------------------------------- profiles
 
 // TODO(copy): real profile links. Rendered as 36px circular chips.
-// Items inside a linked Tile must omit href — see SocialRow's docs.
 export const socials: SocialItem[] = [
   { label: 'GH' },
   { label: 'LI' },
