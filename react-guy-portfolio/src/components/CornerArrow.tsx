@@ -39,11 +39,19 @@ export const CornerArrow = ({ size = 'default' }: CornerArrowProps) => {
         height: diameter,
         borderRadius: '50%',
         border: '1px solid',
-        borderColor: 'divider',
+        /*
+         * currentColor, not `divider`. The arrow has to sit on whatever surface
+         * its tile provides, and two tiles are dark in BOTH schemes (hero and
+         * the about photo, spec §8). A scheme-level `divider` paints a pale ring
+         * on those in light mode. Deriving from the inherited text colour means
+         * the ring is always a quiet step off its own tile, on any surface.
+         */
+        borderColor: 'currentColor',
+        opacity: 0.55,
         display: 'grid',
         placeItems: 'center',
-        color: 'text.primary',
-        transition: `transform ${geometry.duration} ease, background-color ${geometry.duration} ease, color ${geometry.duration} ease, border-color ${geometry.duration} ease`,
+        color: 'inherit',
+        transition: `transform ${geometry.duration} ease, background-color ${geometry.duration} ease, color ${geometry.duration} ease, border-color ${geometry.duration} ease, opacity ${geometry.duration} ease`,
       }}
     >
       ↗

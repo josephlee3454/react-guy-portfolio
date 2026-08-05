@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { tokens } from '@/theme/tokens';
 
 export interface TimelineProps {
   /** TimelineItem elements. */
@@ -48,7 +47,7 @@ export const Timeline = ({ children, columns = 1 }: TimelineProps) => {
                 // The shorthand would reset border-top-color to currentColor,
                 // and this selector outranks the item's own rule. tokens.line
                 // is the literal behind palette.divider.
-                borderTop: `1px solid ${tokens.line}`,
+                borderTop: '1px solid var(--mui-palette-divider)',
                 paddingTop: '16px',
               },
             }

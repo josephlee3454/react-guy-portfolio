@@ -65,6 +65,15 @@ export const ProjectCard = ({
           backgroundPosition: 'center',
           // Belt and braces for the gradient case, where `cover` is a no-op.
           backgroundColor: 'background.paper',
+          /*
+           * Spec §8: the placeholder gradient is mixed for a dark surface. Left
+           * alone in light mode it stays a dark slab on pale paper. The filter
+           * also applies to a real screenshot once one exists, which is the
+           * intent — the whole tile set should read as one exposure.
+           */
+          '@media (prefers-color-scheme: light)': {
+            filter: 'saturate(.5) brightness(1.62)',
+          },
         }}
       >
         {!image && (

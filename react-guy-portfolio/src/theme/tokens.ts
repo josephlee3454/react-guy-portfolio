@@ -1,78 +1,100 @@
 /**
  * Single source of truth for the design system.
  *
- * Every colour and geometry literal in the app originates here. The MUI palette
- * (theme/index.ts) and the CSS custom properties injected into :root
- * (theme/components.ts) are both derived from this file — neither derives from
- * the other, so a re-theme is a one-file edit.
+ * Tokens are SEMANTIC, not literal — `surface`, not `tile`; `text`, not `bone`
+ * (DESIGN_SPEC §8). That is the whole reason a theme flip is one block of values
+ * instead of a rewrite. Never reintroduce a colour-named token.
  *
- * Derived from `design 2/DESIGN_SPEC.md` and `design 2/assets/styles.css`,
- * which are read-only reference. Where the two disagree the spec wins, per
- * `design 2/README-FOR-CLAUDE.md`. Those cases are marked SPEC-OVER-CSS below.
+ * Derived from `design 3/DESIGN_SPEC.md` and `design 3/assets/styles.css`, which
+ * are read-only reference. Where the two disagree the spec wins, per
+ * `design 3/README-FOR-CLAUDE.md`.
+ *
+ * NOTE ON THE MOCKUP: styles.css uses `var(--line)` in 13 places but never
+ * defines it — the rename to `--border` was left half-finished, so those borders
+ * are invalid there. The spec defines `--border`; that is what `border` below is.
  */
 
-export const tokens = {
-  /** page background — warm-black shifted green, sits under the photo's teal */
-  ink: '#0F1211',
-  /** default tile fill */
-  tile: '#181C1B',
-  /** raised tile fill (marquee, post-row hover) */
-  tile2: '#1F2422',
-  /** 1px tile borders */
-  line: '#2C3331',
-  /**
-   * Tile border on hover.
-   * SPEC-OVER-CSS: spec §3 says #4A4438 (warm brown); styles.css:67 says
-   * #46504C (green-grey, consistent with --line's hue). Using the spec value.
-   */
-  lineHover: '#4A4438',
-  /** primary text */
-  bone: '#F0EDE4',
-  /**
-   * Eyebrows, body copy, footer.
-   * Tightest contrast pair in the system: #8E948E on --tile is 5.58:1.
-   * Passes AA at the spec's 15px body floor. Do not darken.
-   */
-  muted: '#8E948E',
-  /** amber — CTA fill, underlines, hover arrow */
+/** Values shared by both colour schemes. */
+export const shared = {
+  /** Fill only. Works on both schemes because text on it is always `onAccent`. */
   accent: '#FF7A18',
-  /** accent hover */
   accentSoft: '#FF8C38',
-  /**
-   * Dimmed text: marquee inactive words, image-placeholder labels.
-   * Unnamed in the mockup's :root but used in three places, so it is promoted
-   * here rather than hand-typed as a hex each time.
+  /** Text sitting ON an accent fill. Near-black, never white. */
+  onAccent: '#14181A',
+
+  /*
+   * The hero tile stays dark in BOTH schemes (spec §8). The portrait is a
+   * cross-processed photo with teal shadows; on a pale tile it reads as a heavy
+   * rectangle pasted onto paper and the bottom fade-to-surface stops working.
+   * `.about-photo` gets the same treatment.
    */
+  heroBg: '#141817',
+  heroBorder: '#242A28',
+  heroText: '#F0EDE4',
+  heroMuted: '#9AA09A',
+} as const;
+
+export const dark = {
+  bg: '#0F1211',
+  surface: '#181C1B',
+  surface2: '#1F2422',
+  border: '#2C3331',
+  text: '#F0EDE4',
+  textMuted: '#8E948E',
+  /**
+   * The accent used AS TEXT — brand period, the `<em>` in headings, the marquee
+   * star. Identical to the fill on dark; see `light.accentInk` for why it moves.
+   */
+  accentInk: '#FF7A18',
+  /** Tile border on hover. */
+  borderHover: '#46504C',
+  /** Dimmed text: marquee inactive words, image-placeholder labels. */
   dim: '#5E6663',
 } as const;
 
-/**
- * The cobalt fallback documented in spec §1. To switch schemes, replace
- * `accent`/`accentSoft` above with these and flip `primary.contrastText`
- * in theme/index.ts from `tokens.ink` to '#fff'.
- */
-export const cobaltFallback = { accent: '#1F3BFF', accentSoft: '#2A44FF' } as const;
+export const light = {
+  bg: '#EFEBE1',
+  surface: '#FBF9F4',
+  surface2: '#E6E1D4',
+  border: '#DAD3C2',
+  text: '#171A18',
+  textMuted: '#6A6E67',
+  /**
+   * Darkened from the fill colour. #FF7A18 as text on a pale background reaches
+   * only ~2.3:1; #B84E08 clears 4.5:1. Using `accent` for text is the single
+   * easiest way to fail contrast in this design (spec §8).
+   */
+  accentInk: '#B84E08',
+  borderHover: '#B9B09A',
+  /**
+   * The mockup hardcodes #5E6663 for this in both schemes (styles.css:142, 176,
+   * 256), which is a dark-scheme value — on `light.surface` it reads as ordinary
+   * body text rather than a dimmed label, losing the distinction from
+   * `textMuted`. Lightened here to sit between `textMuted` and `border`.
+   */
+  dim: '#A5A091',
+} as const;
 
 export const geometry = {
-  /** tile radius */
+  /** Tile radius. */
   radius: 26,
-  /** grid gap AND page padding — the same value everywhere */
+  /** Grid gap AND page padding — the same value everywhere. */
   gap: 14,
-  /** tile inner padding — exactly 2 x gap */
+  /** Tile inner padding — exactly 2 x gap. */
   pad: 28,
-  /** tile radius below 620px */
+  /** Tile radius below 620px. */
   radiusSm: 20,
-  /** tile inner padding below 620px */
+  /** Tile inner padding below 620px. */
   padSm: 22,
-  /** corner arrow diameter */
+  /** Corner arrow diameter. */
   arrow: 44,
-  /** corner arrow on the CTA tile only */
+  /** Corner arrow on the CTA tile only. */
   arrowLarge: 64,
-  /** nav pill and chip radius */
+  /** Nav pill, chip, and theme-toggle radius. */
   pill: 999,
-  /** tile hover lift */
+  /** Tile hover lift. */
   lift: '-3px',
-  /** standard transition, matching the mockup's .25s ease */
+  /** Standard transition, matching the mockup's .25s ease. */
   duration: '.25s',
 } as const;
 
@@ -86,11 +108,8 @@ export const fonts = {
  * The design has exactly two breakpoints: <=1000px and <=620px.
  *
  * MUI's `down(key)` emits `max-width: (value - 0.05)px`, so each value is the
- * spec's threshold plus one. `down('md')` -> max-width:1000.95px, which matches
- * the mockup's `@media (max-width:1000px)` for every real device width.
- *
- * `lg`/`xl` are parked above any real viewport so an accidental `up('lg')`
- * is a no-op rather than a silent third breakpoint.
+ * spec's threshold plus one. `lg`/`xl` are parked above any real viewport so an
+ * accidental `up('lg')` is a no-op rather than a silent third breakpoint.
  */
 export const breakpointValues = {
   xs: 0,
@@ -104,32 +123,19 @@ export const breakpointValues = {
 export const columns = { desktop: 12, tablet: 6, mobile: 1 } as const;
 
 /**
- * The mockup's :root block, generated rather than hand-copied.
- * Injected by MuiCssBaseline so components can read `var(--r)` etc.
+ * Non-colour custom properties, injected once at :root.
+ *
+ * Colours are NOT here — they come from MUI's colour-scheme variables, which
+ * switch automatically. Only geometry lives as raw CSS vars, because `--r` and
+ * `--pad` shift responsively and a JS scalar cannot express that.
  */
 export const rootCssVars: Record<string, string> = {
-  '--ink': tokens.ink,
-  '--tile': tokens.tile,
-  '--tile-2': tokens.tile2,
-  '--line': tokens.line,
-  '--line-hover': tokens.lineHover,
-  '--bone': tokens.bone,
-  '--muted': tokens.muted,
-  '--accent': tokens.accent,
-  '--accent-soft': tokens.accentSoft,
-  '--dim': tokens.dim,
   '--r': `${geometry.radius}px`,
   '--gap': `${geometry.gap}px`,
   '--pad': `${geometry.pad}px`,
 };
 
-/**
- * Redefined at <=620px only.
- *
- * Radius and padding shift responsively, which a scalar `theme.shape.borderRadius`
- * cannot express. Redefining the two vars at :root updates every surface at once
- * instead of forcing six components to each carry a duplicate media query.
- */
+/** Redefined at <=620px only. */
 export const rootCssVarsCompact: Record<string, string> = {
   '--r': `${geometry.radiusSm}px`,
   '--pad': `${geometry.padSm}px`,

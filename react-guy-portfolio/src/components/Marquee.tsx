@@ -88,7 +88,7 @@ export const Marquee = ({ items, sx }: MarqueeProps) => {
           },
 
           '& b': { color: 'text.primary', fontWeight: 800 },
-          '& i': { fontStyle: 'normal', color: 'primary.main' },
+          '& i': { fontStyle: 'normal', color: 'accentInk' },
         }}
       >
         {items.map((item, index) => (
