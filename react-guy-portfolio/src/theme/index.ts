@@ -97,7 +97,7 @@ const accentPalette = {
   light: shared.accentSoft,
   dark: shared.accent,
   /*
-   * Spec §1 and §8: text on the amber is near-black, never white.
+   * Spec §1 and §3: text on the amber is near-black, never white.
    * #14181A on #FF7A18 is 6.9:1; white on it is 2.6:1. Pinning this makes every
    * primary-coloured surface correct by default instead of by discipline.
    */
@@ -120,7 +120,7 @@ const accentPalette = {
  *   - `defaultColorScheme: 'dark'` is what `:root` gets, so a browser that
  *     reports no preference — or does not support the query at all — lands on
  *     dark, which is the requested fallback.
- *   - There is no in-session toggle. The mockup has one (spec §8); adding it
+ *   - There is no in-session toggle. The mockup has one; adding it
  *     means switching this to 'class' and storing the choice. See the note in
  *     ThemeRegistry.
  */

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 /**
- * Spec §7: head → form (7) + direct details (5).
+ * On §2's 12-column grid: head → form (7) + direct details (5).
  *
  * Grid rows, each summing to 12:
  *   ContactHead                12
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
  * Assembly only — content in, features out. Each feature owns its own span and
  * everything inside it, so there is no styling at this level.
  *
- * NO CTA TILE, also deliberate. Spec §7: this page is the CTA, and a tile
+ * NO CTA TILE, also deliberate. This page IS the CTA, and a tile
  * asking the reader to get in touch above a form they are already looking at is
  * a second ask that weakens the first. PageShell renders no CTA of its own, so
  * omitting it here is the whole mechanism.

@@ -2,10 +2,10 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { alpha } from '@mui/material/styles';
 
-import { AppLink } from '@/components/AppLink';
+import { BigLink } from '@/components/BigLink';
 import { Eyebrow } from '@/components/Eyebrow';
 import { Tile } from '@/components/Tile';
-import { fonts, shared } from '@/theme/tokens';
+import { shared } from '@/theme/tokens';
 
 export interface DirectDetailsProps {
   availabilityLabel: string;
@@ -16,8 +16,8 @@ export interface DirectDetailsProps {
   /** Display text and destination differ — the label drops the id suffix. */
   linkedin: { label: string; href: string };
   githubLabel: string;
-  /** Label only. There is no handle yet, so there is nothing to link to. */
-  github: { label: string };
+  /** Display text and destination differ — the label drops the scheme. */
+  github: { label: string; href: string };
   locationLabel: string;
   location: string;
 }
@@ -51,51 +51,15 @@ const statusDotSx = {
   flexShrink: 0,
 };
 
-/**
- * `.big-link` — styles.css:298. The `h3` variant is the closest typographic
- * match (display face, 600, -.02em); only the size ramp, the colour and the
- * hover differ, so those are the overrides.
- */
-const bigLinkSx = {
-  fontSize: 'clamp(20px, 2.2vw, 30px)',
-  color: 'text.primary',
-  textDecoration: 'none',
-  wordBreak: 'break-word',
-  transition: 'color .2s ease',
-  '&:hover': { color: 'accentInk' },
-};
-
-/**
- * The LinkedIn link is the same `.big-link`, pinned to 19px in the mockup —
- * the profile URL is long enough that the clamp's upper end would wrap it.
- */
-const linkedinSx = { ...bigLinkSx, fontSize: 19 };
-
-/**
- * The GitHub marker — mono, muted, and deliberately not a link.
- *
- * DESIGN_SPEC §4 lists the handle as still missing and the highest-value
- * remaining gap for an engineering role, so the mockup's `⚠ ADD HANDLE` shows
- * on the page rather than being hidden. Rendering it as a dead link, or as a
- * guessed github.com URL, would both be worse than a visible blank.
- */
-const githubMarkerSx = {
-  margin: 0,
-  fontFamily: fonts.mono,
-  fontSize: 14,
-  letterSpacing: '0.06em',
-  color: 'text.secondary',
-};
-
 /** The gap between blocks two through five. The first block sits flush. */
 const blockSx = { marginTop: BLOCK_GAP };
 
 /**
- * The direct-details tile — spec §7's right column, span 5.
+ * The direct-details tile — the right column of §2's grid, span 5.
  *
- * Five blocks: availability, email, LinkedIn, GitHub, location. `.status` and
- * `.big-link` have no component of their own and live here, since this is the
- * only place either is drawn.
+ * Five blocks: availability, email, LinkedIn, GitHub, location. `.status` still
+ * lives here, since this is the only place it is drawn; `.big-link` moved out to
+ * `components/BigLink` once /references needed the same ramp.
  *
  * No social chip row: this revision of contact.html spells the profiles out as
  * their own blocks with full URLs, which is more useful than two initials and
@@ -126,31 +90,36 @@ export const DirectDetails = ({
       <Box sx={blockSx}>
         <Eyebrow>{emailLabel}</Eyebrow>
         {/*
-          A plain <a>, not AppLink: `mailto:` is not a route, so next/link's
-          prefetching and client navigation have nothing to do here.
+          `external` renders a plain <a>, not AppLink: `mailto:` is not a route,
+          so next/link's prefetching and client navigation have nothing to do.
         */}
-        <Typography variant="h3" component="a" href={`mailto:${email}`} sx={bigLinkSx}>
+        <BigLink external href={`mailto:${email}`}>
           {email}
-        </Typography>
+        </BigLink>
       </Box>
 
       <Box sx={blockSx}>
         <Eyebrow>{linkedinLabel}</Eyebrow>
         {/*
-          AppLink, which resolves to next/link — it handles external URLs fine
-          and is the app's single link component. This tile is not itself a
-          link, so an anchor here nests nothing.
+          No `external`, so BigLink routes through AppLink — it handles external
+          URLs fine and is the app's single link component. This tile is not
+          itself a link, so an anchor here nests nothing.
+
+          19px rather than the clamp: the profile URL is long enough that the
+          clamp's upper end would wrap it.
         */}
-        <Typography variant="h3" component={AppLink} href={linkedin.href} sx={linkedinSx}>
+        <BigLink href={linkedin.href} fontSize={19}>
           {linkedin.label}
-        </Typography>
+        </BigLink>
       </Box>
 
       <Box sx={blockSx}>
         <Eyebrow>{githubLabel}</Eyebrow>
-        <Typography variant="body2" sx={githubMarkerSx}>
+        {/* Same 19px treatment as LinkedIn — the two profile URLs sit together
+            and a size difference between them would read as a hierarchy. */}
+        <BigLink href={github.href} fontSize={19}>
           {github.label}
-        </Typography>
+        </BigLink>
       </Box>
 
       <Box sx={blockSx}>

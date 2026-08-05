@@ -42,7 +42,7 @@ const navLinkSx = (active: boolean) => ({
 
 /**
  * The flex pill. Not a fixed header — it scrolls with the page and keeps the
- * --gap inset from the viewport edge (spec §6).
+ * --gap inset from the viewport edge. §2's map puts it full width above the grid.
  */
 export const Nav = ({ route, brand = siteBrand, sx }: NavProps) => {
   const links = navItems.map((item) => ({ ...item, active: isActive(item.href, route) }));

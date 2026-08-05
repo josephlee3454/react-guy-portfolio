@@ -18,8 +18,8 @@ export interface EyebrowProps {
  */
 export const Eyebrow = ({ children, sx }: EyebrowProps) => {
   if (process.env.NODE_ENV !== 'production' && typeof children === 'string') {
-    // Interpuncts delimit independent fields rather than prose — spec §7 mandates
-    // `year · role · category` for project eyebrows, which is six words but reads
+    // Interpuncts delimit independent fields rather than prose — project
+    // eyebrows read `year · role · category`, which is six words but reads
     // as three labels. So each segment is checked on its own; only an undelimited
     // string is held to the four-word cap.
     const segments = children.split('·');

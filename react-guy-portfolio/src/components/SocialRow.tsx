@@ -1,17 +1,29 @@
+import type { ComponentType } from 'react';
 import { AppLink } from './AppLink';
 import Box from '@mui/material/Box';
 import type { SxProps, Theme } from '@mui/material/styles';
-import { fonts } from '@/theme/tokens';
+import type { SvgIconProps } from '@mui/material/SvgIcon';
+import { GitHubIcon } from './icons/social/GitHubIcon';
+import { LinkedInIcon } from './icons/social/LinkedInIcon';
+import type { SocialItem } from '@/content/types';
 
-export interface SocialItem {
-  /** Two or three characters — "GH", "LI", "X", "IG". Also the accessible name. */
-  label: string;
-  /**
-   * Only honoured when the row is `interactive`. Ignored otherwise, so an href
-   * can never turn into an anchor nested inside a linked tile by accident.
-   */
-  href?: string;
-}
+/**
+ * Re-exported so callers can keep taking the row's item shape from the row.
+ * The shape itself lives in content/types.ts with the rest of the content
+ * shapes — `socials` in site.ts is typed by it too, and one definition is the
+ * point.
+ */
+export type { SocialItem };
+
+/**
+ * The only marks this row can draw. A closed union rather than a component
+ * prop: content files are plain data (no JSX, no imports of components), so
+ * they name an icon and this module owns the drawing.
+ */
+const ICONS: Record<SocialItem['icon'], ComponentType<SvgIconProps>> = {
+  linkedin: LinkedInIcon,
+  github: GitHubIcon,
+};
 
 export interface SocialRowProps {
   items: SocialItem[];
@@ -21,8 +33,13 @@ export interface SocialRowProps {
    * The default is off rather than on because the failure it prevents is not
    * loud: an `<a>` inside an `<a>` produces valid-looking JSX, renders fine on
    * the server, and only breaks once the browser repairs the DOM and React
-   * finds the tree it hydrated no longer matches. Opting in makes the one
-   * standalone usage explicit and keeps every nested one correct by default.
+   * finds the tree it hydrated no longer matches. Opting in makes each usage
+   * inside a linked surface a deliberate decision rather than a default.
+   *
+   * The home Profiles tile is now a plain div precisely so it can opt IN — see
+   * DESIGN_SPEC §4. This guard is what makes that rule enforceable: it is the
+   * thing that fails loudly in dev if the tile ever becomes an anchor again
+   * while the chips still carry hrefs.
    */
   interactive?: boolean;
   sx?: SxProps<Theme>;
@@ -35,36 +52,45 @@ export interface SocialRowProps {
 const HOVER_DURATION = '.2s';
 
 /*
- * A plain object, not a `(theme) => ({...})` callback — Box is a client
- * component and a function prop cannot cross the RSC boundary. Palette values
- * are string paths MUI resolves internally; the outline shorthand needs a real
- * colour, so it takes the literal from tokens.ts. See the note in Bento.tsx.
+ * `.social-row a.soc` — styles.css:443. A plain object, not a
+ * `(theme) => ({...})` callback: Box is a client component and a function prop
+ * cannot cross the RSC boundary. Palette values are string paths MUI resolves
+ * internally. See the note in Bento.tsx.
  */
 const chipStyles = (interactive: boolean) => ({
-  width: 36,
-  height: 36,
+  width: 38,
+  height: 38,
   borderRadius: '50%',
   border: '1px solid',
   borderColor: 'divider',
   display: 'grid',
   placeItems: 'center',
-  fontFamily: fonts.mono,
-  fontSize: 11,
   color: 'text.secondary',
   textDecoration: 'none',
   ...(interactive && {
-    transition: `color ${HOVER_DURATION} ease, border-color ${HOVER_DURATION} ease`,
+    transition:
+      `color ${HOVER_DURATION} ease, border-color ${HOVER_DURATION} ease, ` +
+      `background-color ${HOVER_DURATION} ease`,
     '&:hover': {
-      color: 'text.primary',
-      borderColor: 'surface.borderHover',
+      color: 'accentInk',
+      borderColor: 'accentInk',
+      backgroundColor: 'surface.raised',
     },
     // The global focus ring squares the pill off at border-radius:8px.
   }),
 });
 
+/** `.social-row a.soc svg` — 17px inside the 38px circle. */
+const iconStyles = { display: 'block', fontSize: 17 };
+
 /**
- * `.social-row` — styles.css:129. Four 36px circular chips: 1px border, no
- * fill, mono 11px.
+ * `.social-row` — styles.css:442. Circular 38px chips holding a brand mark
+ * each, 1px border, no fill until hover.
+ *
+ * The marks are the links here, not decoration on a linked tile: the icon is
+ * `aria-hidden` (SvgIcon's default) and the anchor carries `aria-label`, so the
+ * accessible name is announced once. An item with no `href` renders as a span
+ * rather than a dead `href="#"`, which would be focusable and go nowhere.
  *
  * `margin-bottom: auto` is load-bearing, not spacing: the tile is a flex column
  * with `justify-content: flex-end`, so without it the row would sink to the
@@ -77,7 +103,7 @@ export const SocialRow = ({ items, interactive = false, sx }: SocialRowProps) =>
     if (linked.length) {
       console.warn(
         `[SocialRow] ${linked.join(', ')} supplied an href but the row is not interactive, ` +
-          'so it renders as plain text. Pass interactive to make them links — but only ' +
+          'so it renders as a plain chip. Pass interactive to make them links — but only ' +
           'where the row is NOT inside a linked Tile, since that nests one anchor in another.',
       );
     }
@@ -89,7 +115,7 @@ export const SocialRow = ({ items, interactive = false, sx }: SocialRowProps) =>
       sx={[
         {
           display: 'flex',
-          gap: '8px',
+          gap: '9px',
           listStyle: 'none',
           margin: 0,
           marginBottom: 'auto',
@@ -98,19 +124,35 @@ export const SocialRow = ({ items, interactive = false, sx }: SocialRowProps) =>
         ...(Array.isArray(sx) ? sx : [sx]),
       ]}
     >
-      {items.map((item) => (
-        <Box component="li" key={item.label} sx={{ display: 'flex' }}>
-          {interactive && item.href ? (
-            <Box component={AppLink} href={item.href} sx={chipStyles(true)}>
-              {item.label}
-            </Box>
-          ) : (
-            <Box component="span" sx={chipStyles(false)}>
-              {item.label}
-            </Box>
-          )}
-        </Box>
-      ))}
+      {items.map((item) => {
+        const Icon = ICONS[item.icon];
+
+        return (
+          <Box component="li" key={item.label} sx={{ display: 'flex' }}>
+            {interactive && item.href ? (
+              <Box
+                component={AppLink}
+                href={item.href}
+                aria-label={item.label}
+                sx={chipStyles(true)}
+              >
+                <Icon sx={iconStyles} />
+              </Box>
+            ) : (
+              /*
+               * The name moves onto the mark itself here. `aria-label` on a
+               * bare span is unreliable — it names nothing with a role — so the
+               * icon takes `titleAccess`, which gives SvgIcon a <title> and
+               * `role="img"`. The chip is still announced as "GitHub", just not
+               * as something operable.
+               */
+              <Box component="span" sx={chipStyles(false)}>
+                <Icon titleAccess={item.label} sx={iconStyles} />
+              </Box>
+            )}
+          </Box>
+        );
+      })}
     </Box>
   );
 };
