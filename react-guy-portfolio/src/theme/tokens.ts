@@ -38,6 +38,12 @@ export const tokens = {
   accent: '#FF7A18',
   /** accent hover */
   accentSoft: '#FF8C38',
+  /**
+   * Dimmed text: marquee inactive words, image-placeholder labels.
+   * Unnamed in the mockup's :root but used in three places, so it is promoted
+   * here rather than hand-typed as a hex each time.
+   */
+  dim: '#5E6663',
 } as const;
 
 /**
@@ -64,6 +70,10 @@ export const geometry = {
   arrowLarge: 64,
   /** nav pill and chip radius */
   pill: 999,
+  /** tile hover lift */
+  lift: '-3px',
+  /** standard transition, matching the mockup's .25s ease */
+  duration: '.25s',
 } as const;
 
 export const fonts = {
@@ -107,6 +117,7 @@ export const rootCssVars: Record<string, string> = {
   '--muted': tokens.muted,
   '--accent': tokens.accent,
   '--accent-soft': tokens.accentSoft,
+  '--dim': tokens.dim,
   '--r': `${geometry.radius}px`,
   '--gap': `${geometry.gap}px`,
   '--pad': `${geometry.pad}px`,

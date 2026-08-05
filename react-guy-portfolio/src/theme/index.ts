@@ -107,7 +107,7 @@ export const theme = createTheme({
     },
     background: { default: tokens.ink, paper: tokens.tile },
     divider: tokens.line,
-    text: { primary: tokens.bone, secondary: tokens.muted },
+    text: { primary: tokens.bone, secondary: tokens.muted, disabled: tokens.dim },
     surface: { raised: tokens.tile2, lineHover: tokens.lineHover },
   },
   layout: {
