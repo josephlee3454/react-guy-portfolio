@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About &mdash; Your Name</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<nav class="nav">
+  <a class="brand" href="index.html">yourname<span>.</span></a>
+  <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="about.html" aria-current="page">About</a></li><li><a href="work.html">Work</a></li><li><a href="writing.html">Writing</a></li><li><a href="contact.html">Contact</a></li></ul>
+  <a class="nav-cta" href="contact.html">Start here</a>
+</nav>
+<main class="bento">
+  <div class="page-head">
+    <h1>I build the<br>whole thing<em>.</em></h1>
+    <p class="lede">Nine years of shipping software, most of it at companies small enough that
+    "full stack" meant the database, the deploy pipeline, and the button the customer clicks.
+    I like the parts other people avoid: migrations, auth, the query that got slow.</p>
+  </div>
+
+  <div class="tile about-photo" role="img" aria-label="Portrait photograph"></div>
+
+  <div class="tile s7">
+    <p class="eyebrow">How I work</p>
+    <h2>Boring technology, on purpose.</h2>
+    <p style="color:var(--muted);font-size:15px;line-height:1.7;margin:16px 0 0;max-width:48ch">
+      Most projects don't fail on the framework choice. They fail because nobody owned the
+      data model, or because the thing that worked at a hundred rows fell over at a million.
+      I start at the schema and work outward, and I'd rather ship something small this month
+      than something perfect next year.</p>
+    <div class="chips" style="margin-top:24px">
+      <b class="on">TypeScript</b><b class="on">Python</b><b class="on">Go</b>
+      <b>React</b><b>Next.js</b><b>Node</b><b>Postgres</b><b>Redis</b>
+      <b>Docker</b><b>Terraform</b><b>AWS</b><b>CI/CD</b>
+    </div>
+  </div>
+
+  <div class="tile s12">
+    <p class="eyebrow">Credentials</p>
+    <h2>Where I've been</h2>
+    <ol class="tl tl-2">
+      <li><time>2022&ndash;NOW</time><div><h3>Staff Engineer</h3><p>Company name. Led the billing rewrite; cut p95 checkout latency by two thirds.</p></div></li>
+      <li><time>2019&ndash;2022</time><div><h3>Senior Full Stack</h3><p>Company name. Built the internal platform four product teams shipped on.</p></div></li>
+      <li><time>2017&ndash;2019</time><div><h3>Engineer</h3><p>Company name. First engineering hire. Everything from Stripe to on-call.</p></div></li>
+      <li><time>2016</time><div><h3>B.S. Computer Science</h3><p>University name.</p></div></li>
+    </ol>
+  </div>
+
+  <div class="tile s4" id="services">
+    <p class="eyebrow">What I do</p>
+    <h2>Greenfield builds</h2>
+    <p style="color:var(--muted);font-size:14px;line-height:1.65;margin:12px 0 0">
+      Idea to production. Schema, API, interface, deploy pipeline, and the docs so you
+      aren't dependent on me afterwards.</p>
+  </div>
+
+  <div class="tile s4">
+    <p class="eyebrow">What I do</p>
+    <h2>Rescue work</h2>
+    <p style="color:var(--muted);font-size:14px;line-height:1.65;margin:12px 0 0">
+      The codebase nobody wants to touch. I find out why it's slow, why it breaks, and
+      what it would actually cost to fix.</p>
+  </div>
+
+  <div class="tile s4">
+    <p class="eyebrow">What I do</p>
+    <h2>Fractional lead</h2>
+    <p style="color:var(--muted);font-size:14px;line-height:1.65;margin:12px 0 0">
+      Architecture, code review, and hiring input for teams that need a senior voice
+      but not a senior salary.</p>
+  </div>
+
+  <a class="tile cta" href="contact.html">
+    <h2>So what are we building?</h2>
+    <span class="arrow" aria-hidden="true">&#8599;</span>
+  </a>
+</main>
+<footer class="foot">
+  <span>&copy; 2026 Your Name</span>
+  <span><a href="index.html">Home</a> &middot; <a href="about.html">About</a> &middot; <a href="work.html">Work</a> &middot; <a href="writing.html">Writing</a> &middot; <a href="contact.html">Contact</a></span>
+  <span>hello@yourname.com</span>
+</footer>
+</body>
+</html>

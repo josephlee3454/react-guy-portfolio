@@ -1,69 +1,103 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import { tokens } from '@/theme/tokens';
+
+/**
+ * TEMPORARY — theme smoke test, not part of the design.
+ *
+ * Renders every token and type variant so the MUI config can be checked in a
+ * browser. Delete this when the real bento home page lands.
+ */
+
+const swatches = Object.entries(tokens);
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <Stack spacing={2} sx={{ maxWidth: 1100, mx: 'auto', py: 2 }}>
+      <Typography variant="eyebrow">Theme smoke test</Typography>
+      <Typography variant="h1">
+        Tokens<Box component="span" sx={{ color: 'primary.main' }}>.</Box>
+      </Typography>
+
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr 1fr', sm: 'repeat(5, 1fr)' },
+          gap: 1,
+        }}
+      >
+        {swatches.map(([name, value]) => (
+          <Box
+            key={name}
+            sx={{
+              bgcolor: 'background.paper',
+              border: '1px solid',
+              borderColor: 'divider',
+              borderRadius: 'var(--r)',
+              p: 'var(--pad)',
+            }}
           >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+            <Box
+              sx={{
+                height: 56,
+                mb: 1,
+                borderRadius: 2,
+                bgcolor: value,
+                border: '1px solid',
+                borderColor: 'divider',
+              }}
             />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            <Typography variant="statLabel" sx={{ display: 'block' }}>
+              {name}
+            </Typography>
+            <Typography variant="mono" sx={{ textTransform: 'none' }}>
+              {value}
+            </Typography>
+          </Box>
+        ))}
+      </Box>
+
+      <Box
+        sx={{
+          bgcolor: 'background.paper',
+          border: '1px solid',
+          borderColor: 'divider',
+          borderRadius: 'var(--r)',
+          p: 'var(--pad)',
+        }}
+      >
+        <Typography variant="eyebrow">Type specimen</Typography>
+        <Typography variant="h2">Tile heading, Bricolage 600</Typography>
+        <Typography variant="h3">Card heading</Typography>
+        <Typography variant="body1">
+          Body copy in IBM Plex Sans at the 15px accessibility floor.
+        </Typography>
+        <Typography variant="body2">Secondary copy at 14px in muted.</Typography>
+        <Stack direction="row" spacing={2} sx={{ mt: 2, alignItems: 'baseline' }}>
+          <Box>
+            <Typography variant="statNumber" sx={{ display: 'block' }}>
+              07
+            </Typography>
+            <Typography variant="statLabel">Stat label</Typography>
+          </Box>
+          <Button>Start here</Button>
+        </Stack>
+      </Box>
+
+      <Box
+        sx={{
+          bgcolor: 'primary.main',
+          color: 'primary.contrastText',
+          borderRadius: 'var(--r)',
+          p: 'var(--pad)',
+        }}
+      >
+        <Typography variant="h2" sx={{ color: 'inherit', maxWidth: '13ch' }}>
+          So what are we building?
+        </Typography>
+      </Box>
+    </Stack>
   );
 }
