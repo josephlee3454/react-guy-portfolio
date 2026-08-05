@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Writing &mdash; Your Name</title>
+<title>Writing &mdash; Joseph Lee</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
@@ -11,11 +11,16 @@
 </head>
 <body>
 <nav class="nav">
-  <a class="brand" href="index.html">yourname<span>.</span></a>
-  <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="work.html">Work</a></li><li><a href="writing.html" aria-current="page">Writing</a></li><li><a href="contact.html">Contact</a></li></ul>
-  <a class="nav-cta" href="contact.html">Start here</a>
+  <a class="brand" href="index.html">josephlee<span>.</span></a>
+  <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="work.html">Work</a></li><li><a href="testimonials.html">Testimonials</a></li><li><a href="writing.html" aria-current="page">Writing</a></li><li><a href="contact.html">Contact</a></li></ul>
+  <div class="nav-right">
+    <button class="theme-toggle" type="button" aria-label="Switch theme">&#9728;</button>
+    <a class="nav-cta" href="contact.html">Start here</a>
+  </div>
 </nav>
 <main class="bento">
+
+
   <div class="page-head">
     <h1>Writing<em>.</em></h1>
     <p class="lede">Notes from things that went wrong and what I'd do differently.
@@ -54,11 +59,23 @@
     <h2>So what are we building?</h2>
     <span class="arrow" aria-hidden="true">&#8599;</span>
   </a>
+
+
 </main>
 <footer class="foot">
-  <span>&copy; 2026 Your Name</span>
-  <span><a href="index.html">Home</a> &middot; <a href="about.html">About</a> &middot; <a href="work.html">Work</a> &middot; <a href="writing.html">Writing</a> &middot; <a href="contact.html">Contact</a></span>
-  <span>hello@yourname.com</span>
+  <span>&copy; 2026 Joseph Lee</span>
+  <span><a href="index.html">Home</a> &middot; <a href="about.html">About</a> &middot; <a href="work.html">Work</a> &middot; <a href="testimonials.html">Testimonials</a> &middot; <a href="writing.html">Writing</a> &middot; <a href="contact.html">Contact</a></span>
+  <span>joseph.lee3454@gmail.com</span>
 </footer>
+<script>
+(function(){
+  var root=document.documentElement, btn=document.querySelector('.theme-toggle');
+  function set(t){root.setAttribute('data-theme',t);btn.textContent=t==='light'?'\u263E':'\u2600';
+    btn.setAttribute('aria-label','Switch to '+(t==='light'?'dark':'light')+' theme');}
+  set(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  btn.addEventListener('click',function(){
+    set(root.getAttribute('data-theme')==='light'?'dark':'light');});
+})();
+</script>
 </body>
 </html>

@@ -1,12 +1,12 @@
 import { PageHead } from '@/components/PageHead';
-import { WorkFilters } from './WorkFilters';
+import { WorkFilters, type WorkFilter } from './WorkFilters';
 
 export interface WorkHeadProps {
   title: string;
   /** Amber fragment appended to the title — the mockup's `<em>`. */
   accent?: string;
   lede?: string;
-  filters: readonly string[];
+  filters: readonly WorkFilter[];
 }
 
 /**

@@ -2,57 +2,51 @@ import Typography from '@mui/material/Typography';
 
 import { Tile } from '@/components/Tile';
 import { Eyebrow } from '@/components/Eyebrow';
-import { Chip, ChipRow } from '@/components/Chip';
-
-/**
- * The amber chip in the mockup's stack row (`.chips b.on`).
- *
- * Not Chip's `active` prop: `active` means "this filter is selected", and Chip
- * warns in dev when it is set on a chip the reader cannot toggle. Here the
- * amber marks the core of the stack — emphasis, not state — so the fill is
- * applied directly and the chip stays honestly non-interactive.
- *
- * A plain object, like every sx in the app: Box is a client component and a
- * theme callback cannot cross the RSC boundary (see Bento.tsx). It lives in
- * this feature rather than inside Chip because it is one section's emphasis,
- * not a variant the primitive owes every caller.
- */
-const CORE_CHIP_SX = {
-  borderColor: 'primary.main',
-  backgroundColor: 'primary.main',
-  color: 'primary.contrastText',
-} as const;
 
 export interface AboutPhilosophyProps {
-  philosophy: { eyebrow: string; title: string; body: string };
-  /** The mockup's amber chips, rendered first. */
-  coreStack: readonly string[];
-  stack: readonly string[];
+  philosophy: {
+    eyebrow: string;
+    title: string;
+    /** Rendered in order, one <p> each. */
+    body: readonly string[];
+  };
 }
 
-/** The "how I work" tile. Row: 5 + 7 = 12, paired with AboutPortrait. */
-export const AboutPhilosophy = ({ philosophy, coreStack, stack }: AboutPhilosophyProps) => {
+/**
+ * The "how I work" tile. Row: 5 + 7 = 12, paired with AboutPortrait.
+ *
+ * The stack chips used to live here. In this revision they are a section of
+ * their own (StackHead + StackRow), so this tile is prose only and the body
+ * arrives as paragraphs rather than one string — the mockup sets a smaller top
+ * margin on the second (14px against 16px), which is the only reason the index
+ * is looked at.
+ *
+ * sx is a plain object throughout: Box is a client component and a theme
+ * callback cannot cross the RSC boundary (see Bento.tsx).
+ */
+export const AboutPhilosophy = ({ philosophy }: AboutPhilosophyProps) => {
   return (
     <Tile span={7} arrow={false}>
       <Eyebrow>{philosophy.eyebrow}</Eyebrow>
       <Typography variant="h2">{philosophy.title}</Typography>
-      <Typography
-        variant="body1"
-        sx={{ color: 'text.secondary', lineHeight: 1.7, maxWidth: '48ch', margin: '16px 0 0' }}
-      >
-        {philosophy.body}
-      </Typography>
 
-      <ChipRow sx={{ marginTop: '24px' }}>
-        {coreStack.map((item) => (
-          <Chip key={item} sx={CORE_CHIP_SX}>
-            {item}
-          </Chip>
-        ))}
-        {stack.map((item) => (
-          <Chip key={item}>{item}</Chip>
-        ))}
-      </ChipRow>
+      {philosophy.body.map((paragraph, i) => (
+        <Typography
+          // Keyed by position: these are paragraphs of one static essay, and
+          // the text itself is long enough that using it as a key would be
+          // worse than the index it would replace.
+          key={i}
+          variant="body1"
+          sx={{
+            color: 'text.secondary',
+            lineHeight: 1.7,
+            maxWidth: '50ch',
+            margin: i === 0 ? '16px 0 0' : '14px 0 0',
+          }}
+        >
+          {paragraph}
+        </Typography>
+      ))}
     </Tile>
   );
 };
