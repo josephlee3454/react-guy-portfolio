@@ -19,7 +19,7 @@ export interface PostListProps {
 /**
  * `.posts` (styles.css:244) — the writing index.
  *
- * Spec §7 keeps this a list rather than a grid of tiles: chronological content
+ * A list rather than a grid of tiles: chronological content
  * has one axis, so rows with the date in the left gutter are the honest
  * structure. The container is a full-width Tile with its padding moved onto the
  * rows, so each row's hover fill reaches the card's edges.
@@ -54,7 +54,7 @@ export interface PostRowProps {
  * One row of the writing index. A whole-surface link, so it holds no other
  * interactive elements.
  *
- * Deliberately not a Tile: spec §7 says lists don't float, so hover shifts the
+ * Deliberately not a Tile: lists do not float, so hover shifts the
  * row 8px right and fills it with --tile-2 instead of lifting it. Reusing
  * Tile would bring the translateY lift, the border, the radius and the corner
  * arrow — all of which are surface affordances this row is defined by not
@@ -80,7 +80,7 @@ export const PostRow = ({ href, date, dateTime, readTime, title, excerpt }: Post
         color: 'inherit',
         transition: `background-color ${ROW_DURATION} ease, padding-left ${ROW_DURATION} ease`,
         '&:first-of-type': { borderTop: 0 },
-        // Spec §7: lists don't float. The row shifts right and fills instead.
+        // Lists don't float. The row shifts right and fills instead.
         '&:hover': {
           backgroundColor: 'surface.raised',
           paddingLeft: 'calc(var(--pad) + 8px)',

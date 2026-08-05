@@ -42,7 +42,8 @@ export const CornerArrow = ({ size = 'default' }: CornerArrowProps) => {
         /*
          * currentColor, not `divider`. The arrow has to sit on whatever surface
          * its tile provides, and two tiles are dark in BOTH schemes (hero and
-         * the about photo, spec §8). A scheme-level `divider` paints a pale ring
+         * the about photo — spec §1's hero tokens). A scheme-level `divider`
+         * paints a pale ring
          * on those in light mode. Deriving from the inherited text colour means
          * the ring is always a quiet step off its own tile, on any surface.
          */

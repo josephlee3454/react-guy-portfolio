@@ -30,7 +30,7 @@ import {
  * on this page lives inside the feature that owns it, in src/features/home —
  * there is deliberately not a <Box> or an `sx` prop left in this file.
  *
- * Grid map, and the rule from §7 that every row sums to 12:
+ * Grid map, and the rule from §2's map that every row sums to 12:
  *
  *   rows 1-2   HERO 6 (row-span 2) | CREDENTIALS 3 | PROJECTS 3 (row-span 2)  = 12
  *              hero continues      | WRITING     3 | projects continues       = 12
@@ -41,9 +41,9 @@ import {
  * DOM ORDER IS LOAD-BEARING. The grid is auto-placed, so credentials must be
  * emitted before projects: hero claims cols 1-6 of rows 1-2, credentials then
  * takes cols 7-9 of row 1, projects takes cols 10-12 across both rows, and
- * writing drops into cols 7-9 of row 2. Emitting projects second — which spec
- * §6's reading-priority note would suggest — puts it at cols 7-9 and breaks the
- * map in §2. The map wins; §6's ordering is followed for the rest of the page.
+ * writing drops into cols 7-9 of row 2. Emitting projects second — which
+ * reading priority alone would suggest, projects being the stronger draw —
+ * puts it at cols 7-9 and breaks the map in §2. The map wins.
  *
  * Tablet spans (<=1000px, a 6-column grid) come from styles.css:186-192:
  * hero/currently/marquee/cta go full width at 6, the other five sit at 3 in pairs.

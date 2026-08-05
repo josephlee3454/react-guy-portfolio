@@ -6,7 +6,7 @@ import type { SxProps, Theme } from '@mui/material/styles';
 
 import { fullName, navItems } from '@/content/site';
 
-/** Same set and order as the nav (spec §7), from the shared content module. */
+/** Same set and order as the nav, from the shared content module. */
 const FOOTER_LINKS = navItems;
 
 export interface FooterProps {

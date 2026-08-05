@@ -50,7 +50,8 @@ function CloseIcon() {
  * no JS.
  *
  * The mockup hides `.nav-links` below 1000px with nothing in its place, which
- * DESIGN_SPEC §7 lists as a known gap. This closes it.
+ * DESIGN_SPEC §2 covers with "Nav links collapse (add a hamburger)". This
+ * closes it.
  */
 export const MobileMenu = ({ links }: MobileMenuProps) => {
   const [open, setOpen] = useState(false);

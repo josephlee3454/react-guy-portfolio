@@ -26,11 +26,10 @@ export const linkedin = {
   href: 'https://www.linkedin.com/in/joseph-lee-600599b9',
 } as const;
 
-// TODO(copy): real GitHub handle. Until then this renders the mockup's on-page
-// marker verbatim and the GH chip stays deliberately dead (no href).
+/** Display text drops the scheme, matching the LinkedIn line above. */
 export const github = {
-  label: '⚠ ADD HANDLE',
-  href: undefined as string | undefined,
+  label: 'github.com/josephlee3454',
+  href: 'https://github.com/josephlee3454',
 } as const;
 
 // ---------------------------------------------------------------- metadata
@@ -45,14 +44,17 @@ export const siteDescription =
 /**
  * Order is fixed by the design. Every item points at a real page.
  *
- * The mockup also has a Testimonials item; it is deliberately omitted here.
- * That page's content is entirely fabricated (DESIGN_SPEC §9), so shipping the
- * nav link would ship a route to invented endorsements.
+ * References replaced the old Testimonials page, which was omitted from this
+ * list because its seven quotes were invented. The new page carries no quotes
+ * and no names — three referees described only by role and employer, plus an
+ * argument for why the details are not published — so nothing on it can be
+ * false about a third party. The reason to hide it is gone.
  */
 export const navItems: NavItem[] = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Work', href: '/work' },
+  { label: 'References', href: '/references' },
   { label: 'Writing', href: '/writing' },
   { label: 'Contact', href: '/contact' },
 ];
@@ -80,11 +82,15 @@ export const fixedCopy = {
 // ---------------------------------------------------------------- profiles
 
 /**
- * Two chips, LI first.
+ * The profiles row: brand marks, not two-letter text chips.
  *
- * Deliberately href-less. The only place this renders is the home page's
- * profiles tile, which is itself a link — so these must be plain text or the
- * markup nests one anchor inside another. The tile links to /contact, where
- * `linkedin` and `github` above are rendered as real, clickable blocks.
+ * These ARE the links now. The tile that holds them is a plain div rather than
+ * an anchor precisely so they can be — an anchor inside an anchor is invalid
+ * and the browser silently repairs it by closing the outer one early.
+ *
+ * Both are live links now.
  */
-export const socials: SocialItem[] = [{ label: 'LI' }, { label: 'GH' }];
+export const socials: SocialItem[] = [
+  { label: 'LinkedIn', icon: 'linkedin', href: linkedin.href },
+  { label: 'GitHub', icon: 'github', href: github.href },
+];

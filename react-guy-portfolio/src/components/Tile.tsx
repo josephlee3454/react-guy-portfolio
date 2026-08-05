@@ -5,7 +5,7 @@ import type { SxProps, Theme } from '@mui/material/styles';
 import { geometry } from '@/theme/tokens';
 import { CornerArrow, ARROW_CLASS } from './CornerArrow';
 
-export type TileVariant = 'default' | 'raised' | 'accent' | 'bare';
+export type TileVariant = 'default' | 'raised' | 'accent' | 'bare' | 'dashed';
 
 export interface TileProps {
   children: ReactNode;
@@ -41,6 +41,12 @@ const FILL: Record<TileVariant, string | undefined> = {
   raised: 'surface.raised',
   accent: 'primary.main',
   bare: 'transparent',
+  /*
+   * The coming-soon banner. Transparent with a dashed rule — the dash is the
+   * whole signal, reading as unfinished-on-purpose rather than broken, which a
+   * solid empty tile does not.
+   */
+  dashed: 'transparent',
 };
 
 /**
@@ -84,6 +90,7 @@ export const Tile = ({
           padding: isBare ? 0 : 'var(--pad)',
           borderRadius: isBare ? 0 : 'var(--r)',
           border: isBare ? 0 : '1px solid',
+          ...(variant === 'dashed' && { borderStyle: 'dashed' }),
           borderColor: isAccent ? 'primary.main' : 'divider',
           backgroundColor: FILL[variant],
           color: isAccent ? 'primary.contrastText' : 'inherit',
