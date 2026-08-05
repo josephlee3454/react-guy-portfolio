@@ -1,10 +1,16 @@
 import type { ReactNode } from 'react';
-import Bento from './Bento';
-import Nav from './Nav';
-import Footer from './Footer';
+import { Bento } from './Bento';
+import { Nav } from './Nav';
+import { Footer } from './Footer';
 import { email } from '@/content/site';
 
 export interface PageShellProps {
+  /**
+   * The page's own route, e.g. '/about'. Drives aria-current in the nav.
+   *
+   * Passed explicitly so Nav can stay a server component — see NavProps.route.
+   */
+  route: string;
   /** Tiles. They land directly on the bento grid, so each must carry a span. */
   children: ReactNode;
 }
@@ -20,12 +26,12 @@ export interface PageShellProps {
  * spec §7 is explicit that contact omits it — that page is itself the CTA — so
  * pages opt in by rendering <CtaTile> as their last child rather than opting out.
  */
-export default function PageShell({ children }: PageShellProps) {
+export const PageShell = ({ route, children }: PageShellProps) => {
   return (
     <>
-      <Nav />
+      <Nav route={route} />
       <Bento>{children}</Bento>
       <Footer email={email} />
     </>
   );
-}
+};

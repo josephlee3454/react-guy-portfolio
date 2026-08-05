@@ -16,7 +16,7 @@ export interface EyebrowProps {
  * plain string children, since counting words inside arbitrary nodes would
  * produce false positives.
  */
-export default function Eyebrow({ children, sx }: EyebrowProps) {
+export const Eyebrow = ({ children, sx }: EyebrowProps) => {
   if (process.env.NODE_ENV !== 'production' && typeof children === 'string') {
     // Interpuncts delimit independent fields rather than prose — spec §7 mandates
     // `year · role · category` for project eyebrows, which is six words but reads
@@ -41,4 +41,4 @@ export default function Eyebrow({ children, sx }: EyebrowProps) {
       {children}
     </Typography>
   );
-}
+};

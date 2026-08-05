@@ -43,7 +43,7 @@ export interface FieldProps {
  * DESIGN_SPEC §7: the form has no action, handler, or validation. This is
  * markup only — no submit handler and no API route are implied.
  */
-export default function Field({
+export const Field = ({
   label,
   name,
   type,
@@ -52,7 +52,7 @@ export default function Field({
   placeholder,
   options,
   sx,
-}: FieldProps) {
+}: FieldProps) => {
   // Derived from `name` rather than React's useId so the component stays a
   // server component (useId is a hook) and the id stays stable and readable.
   // One consequence: two fields sharing a name on one page would collide.
@@ -117,4 +117,4 @@ export default function Field({
       </TextField>
     </Box>
   );
-}
+};

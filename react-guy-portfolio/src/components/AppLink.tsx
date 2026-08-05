@@ -22,6 +22,6 @@ export type AppLinkProps = ComponentProps<typeof NextLink>;
  * Rendering `<NextLink>` as an element (rather than passing it as a value) is
  * unaffected; this only matters for the `component` prop.
  */
-export default function AppLink(props: AppLinkProps) {
+export const AppLink = (props: AppLinkProps) => {
   return <NextLink {...props} />;
-}
+};

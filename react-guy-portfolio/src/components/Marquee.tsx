@@ -38,7 +38,7 @@ export interface MarqueeProps {
  * Not a Tile: it has no inner padding, no arrow, and no hover lift, so it
  * carries its own grid spans in the same shape Tile uses.
  */
-export default function Marquee({ items, sx }: MarqueeProps) {
+export const Marquee = ({ items, sx }: MarqueeProps) => {
   return (
     <Box
       sx={[
@@ -129,4 +129,4 @@ export default function Marquee({ items, sx }: MarqueeProps) {
       </Box>
     </Box>
   );
-}
+};

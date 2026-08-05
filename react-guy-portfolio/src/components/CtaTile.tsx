@@ -1,5 +1,5 @@
 import Typography from '@mui/material/Typography';
-import Tile from './Tile';
+import { Tile } from './Tile';
 
 export interface CtaTileProps {
   /**
@@ -14,7 +14,7 @@ export interface CtaTileProps {
  * The closing tile on every page except contact, which is itself the CTA.
  * Full width, amber fill, ink text, and the 64px corner arrow.
  */
-export default function CtaTile({ headline, href }: CtaTileProps) {
+export const CtaTile = ({ headline, href }: CtaTileProps) => {
   return (
     <Tile
       span={12}
@@ -44,4 +44,4 @@ export default function CtaTile({ headline, href }: CtaTileProps) {
       </Typography>
     </Tile>
   );
-}
+};
