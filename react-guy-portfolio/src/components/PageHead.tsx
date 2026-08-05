@@ -6,13 +6,27 @@ import Tile from './Tile';
 import Eyebrow from './Eyebrow';
 
 export interface PageHeadProps {
-  /** Mono label above the title. */
-  eyebrow: ReactNode;
+  /**
+   * Mono label above the title.
+   *
+   * Optional, and none of the four mockup pages use one — `.page-head` is h1 +
+   * lede only. Kept available for a page that needs it rather than removed.
+   */
+  eyebrow?: ReactNode;
   /** Accepts nodes so a page can force a line break, as the mockup does. */
   title: ReactNode;
   /** Amber fragment appended to the title — the mockup's `<em>`. */
   accent?: ReactNode;
   lede?: ReactNode;
+  /**
+   * Rendered below the lede, inside the header.
+   *
+   * The work page's filter chips sit inside `.page-head` in the mockup, not in
+   * a tile of their own. Putting them here also keeps them outside any linked
+   * tile, which matters — a chip with an href inside a linked Tile would nest
+   * one anchor in another.
+   */
+  children?: ReactNode;
   sx?: SxProps<Theme>;
 }
 
@@ -20,7 +34,14 @@ export interface PageHeadProps {
  * The inner-page header: about, work, writing, contact. Spans 12 and carries
  * its own vertical rhythm (46/38) rather than the tile's uniform --pad.
  */
-export default function PageHead({ eyebrow, title, accent, lede, sx }: PageHeadProps) {
+export default function PageHead({
+  eyebrow,
+  title,
+  accent,
+  lede,
+  children,
+  sx,
+}: PageHeadProps) {
   return (
     <Tile
       span={12}
@@ -36,7 +57,7 @@ export default function PageHead({ eyebrow, title, accent, lede, sx }: PageHeadP
       ]}
     >
       {/* TODO(copy): every string passed in from a page is placeholder. */}
-      <Eyebrow>{eyebrow}</Eyebrow>
+      {eyebrow !== undefined && <Eyebrow>{eyebrow}</Eyebrow>}
 
       <Typography variant="pageTitle">
         {title}
@@ -52,6 +73,8 @@ export default function PageHead({ eyebrow, title, accent, lede, sx }: PageHeadP
           {lede}
         </Typography>
       )}
+
+      {children}
     </Tile>
   );
 }

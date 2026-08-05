@@ -4,14 +4,10 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import type { SxProps, Theme } from '@mui/material/styles';
 
-/** Same set and order as the nav (spec §7), inlined so this stays a server component. */
-const FOOTER_LINKS = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Work', href: '/work' },
-  { label: 'Writing', href: '/writing' },
-  { label: 'Contact', href: '/contact' },
-];
+import { navItems } from '@/content/site';
+
+/** Same set and order as the nav (spec §7), from the shared content module. */
+const FOOTER_LINKS = navItems;
 
 export interface FooterProps {
   email: string;
