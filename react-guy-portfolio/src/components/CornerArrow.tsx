@@ -23,7 +23,7 @@ export interface CornerArrowProps {
  * `aria-hidden` because the tile's own <a> already carries the accessible name;
  * announcing a bare arrow glyph would just add noise.
  */
-export default function CornerArrow({ size = 'default' }: CornerArrowProps) {
+export const CornerArrow = ({ size = 'default' }: CornerArrowProps) => {
   const diameter = size === 'large' ? geometry.arrowLarge : geometry.arrow;
 
   return (
@@ -49,4 +49,4 @@ export default function CornerArrow({ size = 'default' }: CornerArrowProps) {
       ↗
     </Box>
   );
-}
+};

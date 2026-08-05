@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import AppLink from './AppLink';
+import { AppLink } from './AppLink';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import type { SxProps, Theme } from '@mui/material/styles';
@@ -23,7 +23,7 @@ const footLinkSx = {
   '&:hover': { color: 'text.primary' },
 };
 
-export default function Footer({ email, year, sx }: FooterProps) {
+export const Footer = ({ email, year, sx }: FooterProps) => {
   /*
    * Resolved per render rather than at module scope. A module-level
    * `new Date()` is evaluated once when the bundle loads — separately on the
@@ -79,4 +79,4 @@ export default function Footer({ email, year, sx }: FooterProps) {
       </Typography>
     </Box>
   );
-}
+};

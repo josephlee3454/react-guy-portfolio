@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import ThemeRegistry from '@/theme/ThemeRegistry';
+import { ThemeRegistry } from '@/theme/ThemeRegistry';
 import { tokens } from '@/theme/tokens';
 import { fontClassNames } from './fonts';
 
@@ -13,7 +13,7 @@ export const viewport: Viewport = { themeColor: tokens.ink };
 
 // No globals.css import — page styling comes from MuiCssBaseline, which also
 // injects the design's :root custom properties.
-export default function RootLayout({ children }: LayoutProps<'/'>) {
+export const RootLayout = ({ children }: LayoutProps<'/'>) => {
   return (
     <html lang="en" className={fontClassNames}>
       <body>
@@ -21,4 +21,6 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;

@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Tile from './Tile';
-import Eyebrow from './Eyebrow';
+import { Tile } from './Tile';
+import { Eyebrow } from './Eyebrow';
 
 /**
  * The gradient that stands in for a screenshot (styles.css:116).
@@ -38,7 +38,7 @@ export interface ProjectCardProps {
  * A Tile with its padding moved inside, so the shot can bleed to the card's
  * edges while the copy keeps the standard --pad inset.
  */
-export default function ProjectCard({
+export const ProjectCard = ({
   span,
   spanTablet,
   href,
@@ -47,7 +47,7 @@ export default function ProjectCard({
   description,
   lead = false,
   image,
-}: ProjectCardProps) {
+}: ProjectCardProps) => {
   return (
     <Tile span={span} spanTablet={spanTablet} href={href} sx={{ padding: 0 }}>
       <Box
@@ -91,4 +91,4 @@ export default function ProjectCard({
       </Box>
     </Tile>
   );
-}
+};

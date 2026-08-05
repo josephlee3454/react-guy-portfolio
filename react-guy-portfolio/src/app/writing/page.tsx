@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 
-import PageShell from '@/components/PageShell';
-import PageHead from '@/components/PageHead';
-import PostList, { PostRow } from '@/components/PostList';
-import CtaTile from '@/components/CtaTile';
+import { PageShell } from '@/components/PageShell';
+import { PageHead } from '@/components/PageHead';
+import { PostList, PostRow } from '@/components/PostList';
+import { CtaTile } from '@/components/CtaTile';
 import { ctaHref, fixedCopy } from '@/content/site';
 import { posts, writingHead } from '@/content/writing';
 
@@ -29,9 +29,9 @@ export const metadata: Metadata = {
  * No 'use client': every component below is a server component, and every `sx`
  * they receive is a plain object.
  */
-export default function Writing() {
+export const Writing = () => {
   return (
-    <PageShell>
+    <PageShell route="/writing">
       <PageHead {...writingHead} />
 
       <PostList>
@@ -45,4 +45,6 @@ export default function Writing() {
       <CtaTile headline={fixedCopy.ctaHeadline} href={ctaHref} />
     </PageShell>
   );
-}
+};
+
+export default Writing;

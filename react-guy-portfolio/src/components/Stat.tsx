@@ -23,7 +23,7 @@ export interface StatProps {
 }
 
 /** `.stat-row` — styles.css:136. The home page's stats tile. */
-export function StatRow({ children, sx }: StatRowProps) {
+export const StatRow = ({ children, sx }: StatRowProps) => {
   return (
     <Box
       sx={[
@@ -34,14 +34,14 @@ export function StatRow({ children, sx }: StatRowProps) {
       {children}
     </Box>
   );
-}
+};
 
 /**
  * One figure. `statNumber` maps to `<b>` and `statLabel` to `<small>` through
  * the theme's variantMapping, matching the mockup's markup; both are inline
  * elements there, hence the explicit `display: block`.
  */
-export default function Stat({ value, label, sx }: StatProps) {
+export const Stat = ({ value, label, sx }: StatProps) => {
   return (
     <Box sx={sx}>
       <Typography variant="statNumber" sx={{ display: 'block' }}>
@@ -52,4 +52,4 @@ export default function Stat({ value, label, sx }: StatProps) {
       </Typography>
     </Box>
   );
-}
+};

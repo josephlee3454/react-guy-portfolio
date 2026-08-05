@@ -2,8 +2,8 @@ import type { ReactNode } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import type { SxProps, Theme } from '@mui/material/styles';
-import Tile from './Tile';
-import Eyebrow from './Eyebrow';
+import { Tile } from './Tile';
+import { Eyebrow } from './Eyebrow';
 
 export interface PageHeadProps {
   /**
@@ -34,14 +34,14 @@ export interface PageHeadProps {
  * The inner-page header: about, work, writing, contact. Spans 12 and carries
  * its own vertical rhythm (46/38) rather than the tile's uniform --pad.
  */
-export default function PageHead({
+export const PageHead = ({
   eyebrow,
   title,
   accent,
   lede,
   children,
   sx,
-}: PageHeadProps) {
+}: PageHeadProps) => {
   return (
     <Tile
       span={12}
@@ -77,4 +77,4 @@ export default function PageHead({
       {children}
     </Tile>
   );
-}
+};

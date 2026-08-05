@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Tile from './Tile';
-import Eyebrow from './Eyebrow';
+import { Tile } from '@/components/Tile';
+import { Eyebrow } from '@/components/Eyebrow';
 
 export interface HeroProps {
   /** Mono label above the name — the role. */
@@ -28,6 +28,11 @@ export interface HeroProps {
 
 /**
  * The home page's hero tile — the only genuinely bespoke tile in the set.
+ *
+ * A feature, not a primitive: it lives on one page and owns its own place on
+ * the grid. The span/rowSpan defaults below ARE the home grid values, so
+ * page.tsx passes none of them — they stay overridable only because the props
+ * predate the move and cost nothing.
  *
  * Everything except the portrait is a Tile with an h1 in it. The portrait is
  * the reason this file exists: spec §3 requires that the photo not read as a
@@ -56,7 +61,7 @@ export interface HeroProps {
  * Every sx here is a plain object, never a `(theme) => ({...})` callback — see
  * the note in Bento.tsx for why a function prop cannot cross the RSC boundary.
  */
-export default function Hero({
+export const Hero = ({
   eyebrow,
   name,
   accent,
@@ -67,7 +72,7 @@ export default function Hero({
   span = 6,
   spanTablet = 6,
   rowSpan = 2,
-}: HeroProps) {
+}: HeroProps) => {
   const portraitMask = {
     xs: 'linear-gradient(to top, transparent 6%, #000 60%)',
     sm: 'linear-gradient(100deg, transparent 0%, #000 44%)',
@@ -135,4 +140,4 @@ export default function Hero({
       </Box>
     </Tile>
   );
-}
+};

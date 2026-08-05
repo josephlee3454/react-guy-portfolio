@@ -1,4 +1,4 @@
-import AppLink from './AppLink';
+import { AppLink } from './AppLink';
 import Box from '@mui/material/Box';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { fonts, tokens } from '@/theme/tokens';
@@ -73,7 +73,7 @@ const chipStyles = (interactive: boolean) => ({
  * bottom with the heading. The auto margin absorbs the free space and pins the
  * row to the top of the tile.
  */
-export default function SocialRow({ items, sx }: SocialRowProps) {
+export const SocialRow = ({ items, sx }: SocialRowProps) => {
   return (
     <Box
       component="ul"
@@ -104,4 +104,4 @@ export default function SocialRow({ items, sx }: SocialRowProps) {
       ))}
     </Box>
   );
-}
+};

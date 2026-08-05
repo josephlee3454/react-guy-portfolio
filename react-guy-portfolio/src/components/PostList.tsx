@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
-import AppLink from './AppLink';
+import { AppLink } from './AppLink';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Tile from './Tile';
+import { Tile } from './Tile';
 
 /**
  * styles.css:248 — .2s, shorter than the .25s tile transition. A literal rather
@@ -24,13 +24,13 @@ export interface PostListProps {
  * structure. The container is a full-width Tile with its padding moved onto the
  * rows, so each row's hover fill reaches the card's edges.
  */
-export default function PostList({ children }: PostListProps) {
+export const PostList = ({ children }: PostListProps) => {
   return (
     <Tile span={12} spanTablet={6} sx={{ padding: 0 }}>
       {children}
     </Tile>
   );
-}
+};
 
 export interface PostRowProps {
   href: string;
@@ -60,7 +60,7 @@ export interface PostRowProps {
  * arrow — all of which are surface affordances this row is defined by not
  * having.
  */
-export function PostRow({ href, date, dateTime, readTime, title, excerpt }: PostRowProps) {
+export const PostRow = ({ href, date, dateTime, readTime, title, excerpt }: PostRowProps) => {
   return (
     <Box
       component={AppLink}
@@ -109,4 +109,4 @@ export function PostRow({ href, date, dateTime, readTime, title, excerpt }: Post
       </Typography>
     </Box>
   );
-}
+};
