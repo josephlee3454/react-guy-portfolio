@@ -62,8 +62,22 @@ export const contactHead = {
  * site's owner.
  */
 export const formFields: FieldProps[] = [
-  { label: 'Your name', name: 'name', type: 'text', placeholder: 'Jane Okafor' },
-  { label: 'Email', name: 'email', type: 'email', placeholder: 'jane@company.com' },
+  {
+    label: 'Your name',
+    name: 'name',
+    type: 'text',
+    placeholder: 'Jane Okafor',
+    required: true,
+    autoComplete: 'name',
+  },
+  {
+    label: 'Email',
+    name: 'email',
+    type: 'email',
+    placeholder: 'jane@company.com',
+    required: true,
+    autoComplete: 'email',
+  },
   {
     label: 'What’s this about',
     name: 'topic',
@@ -93,6 +107,19 @@ export const formFields: FieldProps[] = [
  * to. See the note on the page itself.
  */
 export const submitLabel = 'Send it';
+
+/**
+ * Formspree form id. Not a secret — it ships in the client bundle whichever way
+ * it is stored, and the endpoint is public by design.
+ */
+export const formspreeId = 'mbgrjkqd';
+
+// TODO(copy): confirm the wording once you have seen a real submission land.
+export const formStatus = {
+  successTitle: 'Got it.',
+  successBody: 'That is in my inbox. I will come back to you shortly.',
+  errorMessage: 'That did not send. Try again, or email me directly.',
+} as const;
 
 /**
  * The direct-details tile. Five blocks: availability, email, LinkedIn, GitHub,

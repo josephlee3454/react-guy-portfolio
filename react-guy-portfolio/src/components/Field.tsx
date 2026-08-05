@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -29,6 +30,16 @@ export interface FieldProps {
    * plain box.
    */
   options?: FieldOption[];
+  /**
+   * Autofill hint — 'name', 'email', 'off'. Worth setting: browser autofill is
+   * materially less reliable without it, and this form asks for exactly the two
+   * fields autofill is best at.
+   */
+  autoComplete?: string;
+  /** Marks the control invalid and colours the border. Pairs with `helperText`. */
+  error?: boolean;
+  /** Validation message, rendered under the control and linked via aria-describedby. */
+  helperText?: ReactNode;
   sx?: SxProps<Theme>;
 }
 
@@ -51,6 +62,9 @@ export const Field = ({
   required = false,
   placeholder,
   options,
+  autoComplete,
+  error = false,
+  helperText,
   sx,
 }: FieldProps) => {
   // Derived from `name` rather than React's useId so the component stays a
@@ -88,6 +102,9 @@ export const Field = ({
         minRows={multiline ? 5 : undefined}
         required={required}
         placeholder={placeholder}
+        autoComplete={autoComplete}
+        error={error}
+        helperText={helperText}
         select={isSelect}
         slotProps={isSelect ? { select: { native: true } } : undefined}
         sx={
