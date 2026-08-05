@@ -1,17 +1,13 @@
 /**
  * Single source of truth for the design system.
  *
- * Tokens are SEMANTIC, not literal — `surface`, not `tile`; `text`, not `bone`
- * (DESIGN_SPEC §8). That is the whole reason a theme flip is one block of values
- * instead of a rewrite. Never reintroduce a colour-named token.
+ * Tokens are SEMANTIC, not literal — `surface`, not `tile`; `text`, not `bone`.
+ * That is the whole reason a theme flip is one block of values instead of a
+ * rewrite. Never reintroduce a colour-named token.
  *
- * Derived from `design 3/DESIGN_SPEC.md` and `design 3/assets/styles.css`, which
+ * Derived from `design 4/DESIGN_SPEC.md` and `design 4/assets/styles.css`, which
  * are read-only reference. Where the two disagree the spec wins, per
- * `design 3/README-FOR-CLAUDE.md`.
- *
- * NOTE ON THE MOCKUP: styles.css uses `var(--line)` in 13 places but never
- * defines it — the rename to `--border` was left half-finished, so those borders
- * are invalid there. The spec defines `--border`; that is what `border` below is.
+ * `design 4/README-FOR-CLAUDE.md`.
  */
 
 /** Values shared by both colour schemes. */
@@ -23,7 +19,7 @@ export const shared = {
   onAccent: '#14181A',
 
   /*
-   * The hero tile stays dark in BOTH schemes (spec §8). The portrait is a
+   * The hero tile stays dark in BOTH schemes (spec §1). The portrait is a
    * cross-processed photo with teal shadows; on a pale tile it reads as a heavy
    * rectangle pasted onto paper and the bottom fade-to-surface stops working.
    * `.about-photo` gets the same treatment.
@@ -69,7 +65,7 @@ export const light = {
   /**
    * Darkened from the fill colour. #FF7A18 as text on a pale background reaches
    * only ~2.3:1; #B84E08 clears 4.5:1. Using `accent` for text is the single
-   * easiest way to fail contrast in this design (spec §8).
+   * easiest way to fail contrast in this design (spec §1, "On the accent").
    */
   accentInk: '#B84E08',
   borderHover: '#B9B09A',

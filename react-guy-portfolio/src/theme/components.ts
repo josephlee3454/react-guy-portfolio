@@ -44,7 +44,7 @@ export const components: Components<Omit<Theme, 'components'>> = {
       // marquee without the marquee component knowing about it.
       '@keyframes marquee-slide': { to: { transform: 'translateX(-50%)' } },
 
-      // Spec §5: a focus ring on every link. next/link renders a bare <a>,
+      // A focus ring on every link. next/link renders a bare <a>,
       // so this targets elements rather than MUI classes.
       'a:focus-visible, button:focus-visible, [tabindex]:focus-visible': {
         /*
@@ -66,7 +66,7 @@ export const components: Components<Omit<Theme, 'components'>> = {
 
       img: { maxWidth: '100%', display: 'block' },
 
-      // Spec §5: kills the marquee and all transitions.
+      // Honours prefers-reduced-motion: kills the marquee and all transitions.
       // Clamping durations rather than setting `animation:none` avoids
       // cancelling animationend listeners; the 26s marquee still stops dead.
       '@media (prefers-reduced-motion: reduce)': {
@@ -113,6 +113,28 @@ export const components: Components<Omit<Theme, 'components'>> = {
       root: { borderRadius: geometry.pill, padding: '12px 22px' },
       contained: ({ theme }) => ({
         '&:hover': { backgroundColor: theme.vars.palette.primary.light },
+        /*
+         * `.submit[disabled]{opacity:.55;cursor:not-allowed}` (styles.css:464)
+         * — the contact form's in-flight state.
+         *
+         * MUI's default swaps the fill for `action.disabledBackground` and the
+         * label for `action.disabled`, which greys the amber out entirely. The
+         * design just fades it, so the resting colours are restated here; the
+         * button stays recognisably the same control while it is sending.
+         *
+         * `pointerEvents: 'auto'` is what lets `cursor` render at all — MUI
+         * sets `pointer-events: none` on a disabled button, and a cursor cannot
+         * show on an element that ignores the pointer. It cannot resurrect the
+         * hover fill: this block sits after `&:hover`, both selectors weigh the
+         * same, so source order settles it in favour of the disabled colours.
+         */
+        '&.Mui-disabled': {
+          opacity: 0.55,
+          cursor: 'not-allowed',
+          pointerEvents: 'auto',
+          backgroundColor: theme.vars.palette.primary.main,
+          color: theme.vars.palette.primary.contrastText,
+        },
       }),
     },
   },
@@ -124,9 +146,9 @@ export const components: Components<Omit<Theme, 'components'>> = {
     styleOverrides: {
       root: ({ theme }) => ({
         backgroundColor: theme.vars.palette.background.default,
-        // Spec §8: in light mode the page background is close enough to the
-        // tile that a field filled with it disappears. surface-2 keeps the
-        // input readable as an input.
+        // Spec §1's light overrides put --bg and --surface close enough
+        // together that a field filled with the page background disappears
+        // into the tile. surface-2 keeps the input readable as an input.
         ...theme.applyStyles('light', {
           backgroundColor: theme.vars.palette.surface.raised,
         }),

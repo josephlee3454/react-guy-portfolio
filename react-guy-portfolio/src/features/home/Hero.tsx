@@ -88,7 +88,7 @@ export const Hero = ({
       sx={{
         // styles.css:90 / :197 — 440px, tightening to 430px in the single-column band.
         minHeight: { xs: 430, sm: 440 },
-        // Spec §8: the hero stays dark in BOTH schemes. The portrait is a
+        // Spec §1: the hero stays dark in BOTH schemes. The portrait is a
         // cross-processed photo with teal shadows; on a pale tile it reads as a
         // heavy rectangle pasted onto paper and the bottom fade stops working.
         // These tokens are scheme-independent by design.

@@ -11,7 +11,13 @@ export interface NavItem {
 }
 
 export interface SocialItem {
+  /** Accessible name — "LinkedIn", "GitHub". Rendered as aria-label, not text. */
   label: string;
-  /** Omit inside a linked Tile — an anchor within an anchor is invalid. */
+  /** Which brand mark to draw. The component owns the path data. */
+  icon: 'linkedin' | 'github';
+  /**
+   * Absent renders a non-interactive chip rather than a dead `href="#"`, which
+   * would be focusable and navigate nowhere.
+   */
   href?: string;
 }

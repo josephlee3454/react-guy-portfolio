@@ -23,7 +23,7 @@ export interface PageShellProps {
  * page. Pages stay pure content.
  *
  * Note there is no CTA tile here. It appears on four of the five pages, and
- * spec §7 is explicit that contact omits it — that page is itself the CTA — so
+ * contact deliberately omits it — that page is itself the CTA — so
  * pages opt in by rendering <CtaTile> as their last child rather than opting out.
  */
 export const PageShell = ({ route, children }: PageShellProps) => {

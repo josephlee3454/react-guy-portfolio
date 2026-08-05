@@ -1,81 +1,90 @@
 /**
- * Writing page content.
+ * Content for /writing.
  *
- * Every string here is placeholder. The mockup's post titles, dates and read
- * times are invented (design 2/README-FOR-CLAUDE.md is explicit about this), so
- * they are NOT copied across — inventing a back catalogue reads as fact once it
- * is rendered. What survives is the shape: five rows, newest first.
+ * THERE IS NO BACK CATALOGUE, AND THIS FILE MUST NOT INVENT ONE. The five post
+ * rows that used to live here were placeholders standing in for the mockup's
+ * fabricated titles; design 4 deletes them outright and replaces the index with
+ * a designed empty state — a coming-soon banner, the subjects actually being
+ * drafted, and an invitation to ask directly. Every string below is real copy
+ * from `design 4/writing.html`.
  *
- * Arrays are typed against the component prop interfaces rather than local
- * shapes, so a field the component needs and this file forgot is a compile
- * error instead of a blank cell on the page.
+ * Do not reintroduce `posts` as an empty array with a fallback render. An empty
+ * array says "a list that happens to have nothing in it today"; this page says
+ * "nothing is published, on purpose, and here is what is coming instead". The
+ * component for real posts (components/PostList.tsx) is still there and is the
+ * right thing to reach for when the first piece lands.
+ *
+ * APOSTROPHES: U+2019 (’) throughout, as in every other content module.
+ * writing.html happens to use ASCII apostrophes in the banner body — the only
+ * strings in the whole mockup that do, against `&rsquo;` everywhere else. That
+ * is a typo in the mockup, not a style, so it is not carried across.
  */
 
+import type { BannerProps } from '@/components/Banner';
 import type { PageHeadProps } from '@/components/PageHead';
-import type { PostRowProps } from '@/components/PostList';
 
-// TODO(copy): real title and lede. No eyebrow — `.page-head` in the mockup is
-// h1 + lede only, on this and every other inner page.
 export const writingHead = {
   title: 'Writing',
-  // The mockup's `<em>` — an amber period closing the title.
+  /** The mockup's `<em>` — an amber period closing the title. */
   accent: '.',
-  lede: 'Placeholder lede. Write-ups will live here; the subjects are not settled yet, so this sentence says nothing about them on purpose.',
+  lede:
+    'Notes on the things that actually took time — schema decisions, resolver ' +
+    'design, and the long middle of a migration.',
 } satisfies PageHeadProps;
 
 /**
- * Post rows, newest first.
+ * The coming-soon banner. Row: 12.
  *
- * `date` is display text and `dateTime` is the machine-readable value behind
- * the `<time>` element. They are separate because the visible form is a human
- * month-and-year that is not itself a valid datetime — with real posts these
- * become e.g. `date: 'May 2026'` / `dateTime: '2026-05'`. Until the months are
- * real, the display text stays generic and `dateTime` carries just the year,
- * which is a valid value on its own.
- *
- * `href` is a bare fragment: no post routes exist yet, and pointing these at
- * `/writing/<slug>` would ship five links that 404.
+ * `badge` reads "Coming soon", which is the same two words as the home page's
+ * Writing tile badge in content/home.ts. DO NOT EXTRACT A SHARED CONSTANT.
+ * They are the same word for unrelated reasons: this one labels an index with
+ * nothing in it, that one labels a nav destination whose contents are pending.
+ * The work page's banner — "Case studies in progress" — is proof this is
+ * per-context editorial copy rather than one system-wide label; a shared
+ * constant would mean rewording one of them silently reworded the other.
  */
-// TODO(copy): real posts — titles, dates, read times, excerpts, and hrefs.
-export const posts: PostRowProps[] = [
-  {
-    href: '#',
-    date: 'Month 2026',
-    dateTime: '2026',
-    readTime: '0 min',
-    title: 'Placeholder post title one',
-    excerpt: 'Placeholder excerpt. One or two lines on what the piece argues, capped at 56ch so the column keeps its measure.',
-  },
-  {
-    href: '#',
-    date: 'Month 2026',
-    dateTime: '2026',
-    readTime: '0 min',
-    title: 'Placeholder post title two',
-    excerpt: 'Placeholder excerpt. One or two lines on what the piece argues, capped at 56ch so the column keeps its measure.',
-  },
-  {
-    href: '#',
-    date: 'Month 2026',
-    dateTime: '2026',
-    readTime: '0 min',
-    title: 'Placeholder post title three',
-    excerpt: 'Placeholder excerpt. One or two lines on what the piece argues, capped at 56ch so the column keeps its measure.',
-  },
-  {
-    href: '#',
-    date: 'Month 2025',
-    dateTime: '2025',
-    readTime: '0 min',
-    title: 'Placeholder post title four',
-    excerpt: 'Placeholder excerpt. One or two lines on what the piece argues, capped at 56ch so the column keeps its measure.',
-  },
-  {
-    href: '#',
-    date: 'Month 2025',
-    dateTime: '2025',
-    readTime: '0 min',
-    title: 'Placeholder post title five',
-    excerpt: 'Placeholder excerpt. One or two lines on what the piece argues, capped at 56ch so the column keeps its measure.',
-  },
-];
+export const banner = {
+  badge: 'Coming soon',
+  title: 'Nothing published yet.',
+  body:
+    'I’d rather leave this empty than fill it with filler. First few pieces are ' +
+    'drafted; they’ll appear here when they’re worth reading.',
+} satisfies BannerProps;
+
+/** The left `s6` tile: the subjects, as chips. */
+export interface WritingTopics {
+  eyebrow: string;
+  title: string;
+  /**
+   * Subjects, not tags. These are full phrases rather than the one- and
+   * two-word technology names every other chip row holds, which is why the
+   * writing feature has to let them wrap — see the note in WritingAside.
+   */
+  subjects: readonly string[];
+}
+
+/** The right `s6` tile: eyebrow, heading, one paragraph. */
+export interface WritingAsk {
+  eyebrow: string;
+  title: string;
+  body: string;
+}
+
+export const topics: WritingTopics = {
+  eyebrow: 'On the list',
+  title: 'What I’m writing about',
+  subjects: [
+    'DataLoaders and the N+1 problem',
+    'Postgres indexes for trading workloads',
+    'Single-table DynamoDB, in hindsight',
+    'Testing GraphQL resolvers',
+  ],
+};
+
+export const ask: WritingAsk = {
+  eyebrow: 'In the meantime',
+  title: 'Ask me directly',
+  body:
+    'Most of what I’d write about I’m happy to talk through. If you want the ' +
+    'long version of any of the above, email is faster than waiting for the post.',
+};

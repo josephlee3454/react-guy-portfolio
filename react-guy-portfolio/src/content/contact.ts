@@ -2,8 +2,7 @@
  * Contact page content.
  *
  * Real content, verified final per DESIGN_SPEC §4. The one deliberate blank is
- * the GitHub handle, which §4 lists as still missing and marks on this page as
- * `⚠ ADD HANDLE`; it comes from site.ts rather than being invented here.
+ * the GitHub handle; it comes from site.ts rather than being retyped here.
  *
  * Email, LinkedIn and GitHub are all imported from site.ts rather than retyped
  * — the address also appears in the footer, and two copies of a contact detail
@@ -15,7 +14,7 @@ import type { ContactHeadProps } from '@/features/contact/ContactHead';
 import { email, fixedCopy, github, linkedin } from '@/content/site';
 
 /**
- * The h1 is the CTA headline: this page is the CTA (spec §7), so it opens with
+ * The h1 is the CTA headline: this page IS the CTA, so it opens with
  * the same sentence the tile carries on the other four pages, broken across two
  * lines with the question mark in the accent colour — the mockup's `<em>`.
  *
@@ -53,9 +52,9 @@ export const contactHead = {
 /**
  * The four form controls, in order.
  *
- * Spec §7: the form is markup only — no action, no handler, no validation. So
- * no field sets `required`, which would introduce browser-side validation for a
- * form that cannot be submitted anyway.
+ * Spec §10: the form is live and POSTs to Formspree, so every control carries a
+ * `name` — Formspree only saves named fields. `email` is named exactly that so
+ * Formspree sets reply-to from it automatically; do not rename it.
  *
  * The placeholder name is an invented example (as in the mockup) and reads as
  * one: it sits in a placeholder, which no reader mistakes for a fact about the
@@ -102,10 +101,7 @@ export const formFields: FieldProps[] = [
   },
 ];
 
-/**
- * The button is `type="button"`, as in the mockup — there is nothing to submit
- * to. See the note on the page itself.
- */
+/** The resting button label. See `formStatus` for the other two it takes on. */
 export const submitLabel = 'Send it';
 
 /**
@@ -114,11 +110,28 @@ export const submitLabel = 'Send it';
  */
 export const formspreeId = 'mbgrjkqd';
 
-// TODO(copy): confirm the wording once you have seen a real submission land.
+/**
+ * Every string the form can say back, from the mockup's own handler
+ * (contact.html:78-100). Reader-visible prose, so it lives here rather than in
+ * the component — nothing a visitor reads should need a component opened to
+ * find it.
+ *
+ * The button takes three labels: `submitLabel` at rest, `sendingLabel` while a
+ * submission is in flight, `retryLabel` once one has failed. Spec §10: "button
+ * re-enables as 'Try again'" — reverting to "Send it" after a failure would
+ * read as though nothing had happened.
+ *
+ * `successBody` interpolates `email` rather than repeating the address, for the
+ * reason in this file's header: two copies of a contact detail drift.
+ */
 export const formStatus = {
-  successTitle: 'Got it.',
-  successBody: 'That is in my inbox. I will come back to you shortly.',
-  errorMessage: 'That did not send. Try again, or email me directly.',
+  successTitle: 'Message sent.',
+  successBody:
+    'Thanks — it lands in my inbox and I will reply from there. If you would rather ' +
+    `not wait, ${email} reaches me directly.`,
+  errorMessage: 'Could not send — email me directly instead.',
+  sendingLabel: 'Sending…',
+  retryLabel: 'Try again',
 } as const;
 
 /**
@@ -129,9 +142,9 @@ export const formStatus = {
  * face applies — "Open to new roles" is exactly four. It is `fixedCopy` because
  * the same line appears on the home page; one availability claim, one string.
  *
- * `github` renders as plain text, not a link: §4 lists the handle as the
- * highest-value remaining gap, and site.ts carries the mockup's `⚠ ADD HANDLE`
- * marker verbatim. A guessed URL would be worse than a visible blank.
+ * `linkedin` and `github` both carry a display label separate from their href —
+ * the visible text drops the id suffix and the scheme respectively, while the
+ * link still goes to the full URL.
  */
 export const directDetails = {
   availabilityLabel: 'Availability',

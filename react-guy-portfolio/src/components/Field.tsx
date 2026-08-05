@@ -51,8 +51,10 @@ export interface FieldProps {
  * the label, the spacing, and the two things the override does not cover
  * (multiline padding and the textarea's height floor).
  *
- * DESIGN_SPEC §7: the form has no action, handler, or validation. This is
- * markup only — no submit handler and no API route are implied.
+ * DESIGN_SPEC §10: the form is live and POSTs to Formspree. This component
+ * still holds no handler and no submission state of its own — `name` and
+ * `required` are the whole of its contract with the form that wraps it, which
+ * owns the submit.
  */
 export const Field = ({
   label,

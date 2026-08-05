@@ -16,6 +16,7 @@
  * ragged grid row.
  */
 
+import type { BannerProps } from '@/components/Banner';
 import type { ProjectCardProps } from '@/components/ProjectCard';
 import type { WorkFilter } from '@/features/work/WorkFilters';
 
@@ -27,6 +28,26 @@ export const pageHead = {
     'Five projects across both halves of the stack — two frontend-led, three ' +
     'backend. Happy to go deeper on any of them in conversation.',
 } as const;
+
+/**
+ * The coming-soon banner, between the header and the project grid. Row: 12.
+ *
+ * WHAT IS PENDING IS THE WRITING, NOT THE WORK. DESIGN_SPEC §4 is explicit:
+ * "the projects are real and shipped; only the long-form write-ups are missing.
+ * Never word this page as though the work itself is pending." The badge says
+ * "Case studies in progress" for that reason, and it is deliberately NOT the
+ * "Coming soon" the writing page and the home Writing tile use — every banner
+ * carries its own copy, so none of these three strings may be merged into a
+ * shared constant.
+ */
+export const banner = {
+  badge: 'Case studies in progress',
+  title: 'The write-ups are coming.',
+  body:
+    'Everything below shipped — these are the summaries. Full case studies with ' +
+    'architecture decisions, what went wrong, and the screenshots are being written ' +
+    'now. Ask me about any of them in the meantime.',
+} satisfies BannerProps;
 
 /**
  * The category row. Labels match the categories in the project eyebrows below.

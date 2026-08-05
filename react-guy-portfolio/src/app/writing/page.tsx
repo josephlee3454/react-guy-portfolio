@@ -2,29 +2,34 @@ import type { Metadata } from 'next';
 
 import { PageShell } from '@/components/PageShell';
 import { PageHead } from '@/components/PageHead';
-import { PostList, PostRow } from '@/components/PostList';
+import { Banner } from '@/components/Banner';
 import { CtaTile } from '@/components/CtaTile';
-import { ctaHref, fixedCopy } from '@/content/site';
-import { posts, writingHead } from '@/content/writing';
 
-// TODO(copy): title and description follow the placeholder page copy.
+import { WritingAside } from '@/features/writing/WritingAside';
+
+import { ctaHref, fixedCopy } from '@/content/site';
+import { ask, banner, topics, writingHead } from '@/content/writing';
+
 export const metadata: Metadata = {
   title: 'Writing',
   description: writingHead.lede,
 };
 
 /**
- * Spec §7: head → post list (12) as rows, not tiles → CTA.
+ * /writing — a designed empty state, not an empty list.
  *
  * Grid rows, each summing to 12:
- *   PageHead 12
- *   PostList 12
- *   CtaTile  12
+ *   PageHead     12
+ *   Banner       12
+ *   WritingAside  6 + 6
+ *   CtaTile      12
  *
- * The index is a list and not a grid of tiles because chronological content has
- * one axis — PostList/PostRow carry that decision, including the hover that
- * shifts the row 8px right rather than lifting it. Swapping in Tiles would
- * re-introduce the float this page is defined by not having.
+ * There is no post list here, and no `posts.length ? … : …` either. Nothing is
+ * published; the page says so in the banner and then spends its remaining two
+ * tiles on what is coming and how to get it early. A list component fed an
+ * empty array would encode the opposite intent — that posts exist and today's
+ * fetch came back short. components/PostList.tsx is deliberately dormant and is
+ * what this page should be rebuilt around when the first piece ships.
  *
  * No 'use client': every component below is a server component, and every `sx`
  * they receive is a plain object.
@@ -34,13 +39,9 @@ export const Writing = () => {
     <PageShell route="/writing">
       <PageHead {...writingHead} />
 
-      <PostList>
-        {posts.map((post) => (
-          // Keyed on the title rather than href — every placeholder post points
-          // at the same fragment, so href is not unique yet.
-          <PostRow key={post.title} {...post} />
-        ))}
-      </PostList>
+      <Banner {...banner} />
+
+      <WritingAside topics={topics} ask={ask} />
 
       <CtaTile headline={fixedCopy.ctaHeadline} href={ctaHref} />
     </PageShell>

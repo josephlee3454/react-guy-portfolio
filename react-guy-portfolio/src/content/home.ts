@@ -56,10 +56,34 @@ export const projects: TileLink = {
   href: '/work',
 };
 
-export const writing: TileLink = {
+/**
+ * A TileLink that also carries a corner badge.
+ *
+ * A separate interface rather than an optional field on `TileLink`: the badge
+ * belongs to exactly one tile, and widening the shared shape would offer it to
+ * the other four — including Selected work, which must never have one.
+ */
+export interface BadgedTileLink extends TileLink {
+  /** Rendered as a `Badge size="tile"` pinned inside the tile's top-left. */
+  badge?: string;
+}
+
+/**
+ * The Writing tile — the one tile on this page that is badged.
+ *
+ * `badge` reads "Coming soon", the same two words as `banner.badge` in
+ * content/writing.ts. DO NOT EXTRACT A SHARED CONSTANT. They are the same word
+ * for unrelated reasons: this one warns that a nav destination has nothing
+ * behind it yet, that one labels an index with nothing in it. The work page's
+ * banner says "Case studies in progress" instead, which is the proof that these
+ * are per-context editorial strings — merge them and rewording one silently
+ * rewords the other.
+ */
+export const writing: BadgedTileLink = {
   eyebrow: 'Notes',
   title: 'Writing',
   href: '/writing',
+  badge: 'Coming soon',
 };
 
 /**
@@ -72,11 +96,16 @@ export const services: TileLink = {
   href: '/about#stack',
 };
 
-/** The chips themselves come from `socials` in site.ts. */
-export const profiles: TileLink = {
+/**
+ * The marks themselves come from `socials` in site.ts.
+ *
+ * No `href`, and the type says so. The tile is a div rather than a link because
+ * the marks inside it are the links (DESIGN_SPEC §4) — an href here would have
+ * to become an anchor wrapping them, which is invalid HTML.
+ */
+export const profiles: Omit<TileLink, 'href'> = {
   eyebrow: 'Find me elsewhere',
   title: 'Profiles',
-  href: ctaHref,
 };
 
 /**
