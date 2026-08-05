@@ -17,20 +17,10 @@ import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { fonts } from '@/theme/tokens';
+import { brand as siteBrand, ctaHref, navItems } from '@/content/site';
 
-/**
- * Spec §7 fixes the set and the order: Home · About · Work · Writing · Contact.
- * These labels and the `Start here` button are fixed copy, not placeholders.
- */
-const NAV_ITEMS = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Work', href: '/work' },
-  { label: 'Writing', href: '/writing' },
-  { label: 'Contact', href: '/contact' },
-];
-
-const CTA_HREF = '/contact';
+const NAV_ITEMS = navItems;
+const CTA_HREF = ctaHref;
 const DRAWER_ID = 'nav-menu-drawer';
 
 export interface NavProps {
@@ -87,8 +77,7 @@ function CloseIcon() {
  * The mockup hides `.nav-links` below 1000px with nothing in its place, which
  * DESIGN_SPEC §7 lists as a known gap. The hamburger and drawer below close it.
  */
-export default function Nav({ brand = 'yourname', sx }: NavProps) {
-  // TODO(copy): `brand` default is the mockup placeholder.
+export default function Nav({ brand = siteBrand, sx }: NavProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
