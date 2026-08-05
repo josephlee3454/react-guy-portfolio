@@ -12,7 +12,7 @@ import theme from './index';
  * answer to the spec's warning that per-tile classes must come after `.tile`
  * in the stylesheet — layer order settles it instead of source order.
  */
-export default function ThemeRegistry({ children }: { children: ReactNode }) {
+export const ThemeRegistry = ({ children }: { children: ReactNode }) => {
   return (
     <AppRouterCacheProvider options={{ key: 'mui', enableCssLayer: true }}>
       <ThemeProvider theme={theme}>
@@ -21,4 +21,4 @@ export default function ThemeRegistry({ children }: { children: ReactNode }) {
       </ThemeProvider>
     </AppRouterCacheProvider>
   );
-}
+};

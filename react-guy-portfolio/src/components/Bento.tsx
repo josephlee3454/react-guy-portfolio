@@ -39,10 +39,10 @@ const root = {
   },
 } as const;
 
-export default function Bento({ children, component = 'main', sx }: BentoProps) {
+export const Bento = ({ children, component = 'main', sx }: BentoProps) => {
   return (
     <Box component={component} sx={[root, ...(Array.isArray(sx) ? sx : [sx])]}>
       {children}
     </Box>
   );
-}
+};

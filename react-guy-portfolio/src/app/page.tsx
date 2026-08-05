@@ -1,173 +1,93 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import { PageShell } from '@/components/PageShell';
+import { CtaTile } from '@/components/CtaTile';
 
-import Bento from '@/components/Bento';
-import Tile from '@/components/Tile';
-import Eyebrow from '@/components/Eyebrow';
-import Nav from '@/components/Nav';
-import Footer from '@/components/Footer';
-import PageHead from '@/components/PageHead';
-import CtaTile from '@/components/CtaTile';
-import ProjectCard from '@/components/ProjectCard';
-import PostList, { PostRow } from '@/components/PostList';
-import Timeline, { TimelineItem } from '@/components/Timeline';
-import Chip, { ChipRow } from '@/components/Chip';
-import Stat, { StatRow } from '@/components/Stat';
-import SocialRow from '@/components/SocialRow';
-import Field from '@/components/Field';
-import Marquee from '@/components/Marquee';
+import { Hero } from '@/features/home/Hero';
+import { CredentialsTile } from '@/features/home/CredentialsTile';
+import { ProjectsTile } from '@/features/home/ProjectsTile';
+import { WritingTile } from '@/features/home/WritingTile';
+import { ServicesTile } from '@/features/home/ServicesTile';
+import { ProfilesTile } from '@/features/home/ProfilesTile';
+import { StatsTile } from '@/features/home/StatsTile';
+import { MarqueeBand } from '@/features/home/MarqueeBand';
+
+import { socials } from '@/content/site';
+import {
+  cta,
+  credentials,
+  hero,
+  marquee,
+  profiles,
+  projects,
+  services,
+  stats,
+  writing,
+} from '@/content/home';
 
 /**
- * TEMPORARY — component gallery, not a design page.
+ * The bento home — DESIGN_SPEC §2.
  *
- * Renders every component so the set can be checked in a browser and so the
- * server/client boundary is actually exercised. Delete when the real pages land.
+ * Assembly only: content in, features out. Every span, minHeight, align and sx
+ * on this page lives inside the feature that owns it, in src/features/home —
+ * there is deliberately not a <Box> or an `sx` prop left in this file.
+ *
+ * Grid map, and the rule from §7 that every row sums to 12:
+ *
+ *   rows 1-2   HERO 6 (row-span 2) | CREDENTIALS 3 | PROJECTS 3 (row-span 2)  = 12
+ *              hero continues      | WRITING     3 | projects continues       = 12
+ *   row 3      SERVICES 4 | PROFILES 3 | STATS 5                              = 12
+ *   row 4      MARQUEE 12                                                     = 12
+ *   row 5      CTA 12                                                         = 12
+ *
+ * DOM ORDER IS LOAD-BEARING. The grid is auto-placed, so credentials must be
+ * emitted before projects: hero claims cols 1-6 of rows 1-2, credentials then
+ * takes cols 7-9 of row 1, projects takes cols 10-12 across both rows, and
+ * writing drops into cols 7-9 of row 2. Emitting projects second — which spec
+ * §6's reading-priority note would suggest — puts it at cols 7-9 and breaks the
+ * map in §2. The map wins; §6's ordering is followed for the rest of the page.
+ *
+ * Tablet spans (<=1000px, a 6-column grid) come from styles.css:186-192:
+ * hero/stats/marquee/cta go full width at 6, the other five sit at 3 in pairs.
+ * Mobile is one column and stacks in this DOM order.
  */
-
-// TODO(copy): every string on this page is placeholder.
-export default function Gallery() {
+export const Home = () => {
   return (
-    <>
-      <Nav />
+    <PageShell route="/">
+      {/* ---- rows 1-2: 6 + 3 + 3 = 12, and 6 + 3 + 3 = 12 ---- */}
 
-      <Bento>
-        <PageHead
-          eyebrow="Component gallery"
-          title="Everything"
-          accent="."
-          lede="Every reusable component rendered once, so the set can be checked against the mockups."
-        />
+      <Hero
+        eyebrow={hero.eyebrow}
+        name={hero.name}
+        accent={hero.accent}
+        bio={hero.bio}
+        href={hero.href}
+        portraitSrc={hero.portraitSrc}
+        portraitAlt={hero.portraitAlt}
+      />
 
-        <Tile span={6} spanTablet={6} rowSpan={2} minHeight={440} align="end" href="/about">
-          <Eyebrow>Tile · hero</Eyebrow>
-          <Typography variant="h2">span 6, row span 2</Typography>
-        </Tile>
+      {/* DOM ORDER IS LOAD-BEARING — credentials before projects. See above. */}
+      <CredentialsTile {...credentials} />
 
-        <Tile span={3} spanTablet={3} minHeight={210} align="end" href="/about">
-          <Eyebrow>More about me</Eyebrow>
-          <Typography variant="h2">Credentials</Typography>
-        </Tile>
+      <ProjectsTile {...projects} />
 
-        <Tile span={3} spanTablet={3} rowSpan={2} minHeight={440} align="end" href="/work">
-          <Eyebrow>Selected work</Eyebrow>
-          <Typography variant="h2">Projects</Typography>
-        </Tile>
+      <WritingTile {...writing} />
 
-        <Tile span={3} spanTablet={3} minHeight={210} align="end" href="/writing">
-          <Eyebrow>Notes</Eyebrow>
-          <Typography variant="h2">Writing</Typography>
-        </Tile>
+      {/* ---- row 3: 4 + 3 + 5 = 12 ---- */}
 
-        <Tile span={4} spanTablet={3} minHeight={190} align="end" href="/contact">
-          <Eyebrow>What I do</Eyebrow>
-          <Typography variant="h2">Services</Typography>
-        </Tile>
+      <ServicesTile {...services} />
 
-        <Tile span={3} spanTablet={3} minHeight={190} align="end" href="/contact">
-          <SocialRow
-            items={[{ label: 'GH' }, { label: 'LI' }, { label: 'X' }, { label: 'RS' }]}
-          />
-          <Eyebrow>Elsewhere</Eyebrow>
-          <Typography variant="h2">Profiles</Typography>
-        </Tile>
+      <ProfilesTile {...profiles} socials={socials} />
 
-        {/* Not a link, so no arrow — the one tile without one. */}
-        <Tile span={5} spanTablet={6} minHeight={190} align="center" arrow={false}>
-          <StatRow>
-            <Stat value="—" label={<>Placeholder<br />metric</>} />
-            <Stat value="—" label={<>Placeholder<br />metric</>} />
-            <Stat value="—" label={<>Placeholder<br />metric</>} />
-          </StatRow>
-        </Tile>
+      <StatsTile stats={stats} />
 
-        <Marquee
-          items={[
-            <>
-              <b>Available</b> for work · <i>2026</i>
-            </>,
-            <>
-              <b>Available</b> for work · <i>2026</i>
-            </>,
-          ]}
-        />
+      {/* ---- row 4: 12 ---- */}
 
-        <Tile span={12} spanTablet={6} variant="raised" arrow={false}>
-          <Eyebrow>Chips</Eyebrow>
-          <ChipRow>
-            <Chip active href="/work">
-              All
-            </Chip>
-            <Chip href="/work">Platform</Chip>
-            <Chip href="/work">Frontend</Chip>
-            <Chip>Static</Chip>
-          </ChipRow>
-        </Tile>
+      <MarqueeBand {...marquee} />
 
-        <ProjectCard
-          span={8}
-          href="/work"
-          eyebrow="2026 · Lead · Platform"
-          title="Lead case study"
-          description="Placeholder description for the lead project card."
-          lead
-        />
-        <ProjectCard
-          span={4}
-          href="/work"
-          eyebrow="2026 · Engineer · Web"
-          title="Second project"
-          description="Placeholder description."
-        />
+      {/* ---- row 5: 12 ---- */}
 
-        <PostList>
-          <PostRow
-            href="/writing"
-            date="May 2026"
-            dateTime="2026-05"
-            readTime="6 min"
-            title="A placeholder post title"
-            excerpt="Placeholder excerpt standing in for real writing."
-          />
-          <PostRow
-            href="/writing"
-            date="Apr 2026"
-            dateTime="2026-04"
-            readTime="4 min"
-            title="Another placeholder post"
-            excerpt="Placeholder excerpt standing in for real writing."
-          />
-        </PostList>
-
-        <Tile span={7} spanTablet={6} arrow={false}>
-          <Eyebrow>Timeline</Eyebrow>
-          <Timeline>
-            <TimelineItem
-              marker="2024—NOW"
-              title="Placeholder role"
-              description="Placeholder description of the role."
-            />
-            <TimelineItem
-              marker="2022—24"
-              title="Placeholder role"
-              description="Placeholder description of the role."
-            />
-          </Timeline>
-        </Tile>
-
-        <Tile span={5} spanTablet={6} arrow={false}>
-          <Eyebrow>Form fields</Eyebrow>
-          <Box component="form" sx={{ mt: 1 }}>
-            <Field label="Name" name="name" />
-            <Field label="Email" name="email" type="email" />
-            <Field label="Message" name="message" multiline />
-          </Box>
-        </Tile>
-
-        <CtaTile headline="So what are we building?" href="/contact" />
-      </Bento>
-
-      {/* TODO(copy): real email. */}
-      <Footer email="hello@yourname.com" />
-    </>
+      <CtaTile headline={cta.headline} href={cta.href} />
+    </PageShell>
   );
-}
+};
+
+export default Home;

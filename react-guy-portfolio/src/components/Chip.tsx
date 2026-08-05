@@ -1,5 +1,5 @@
 import type { MouseEventHandler, ReactNode } from 'react';
-import AppLink from './AppLink';
+import { AppLink } from './AppLink';
 import Box from '@mui/material/Box';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { fonts, geometry, tokens } from '@/theme/tokens';
@@ -45,7 +45,7 @@ export interface ChipProps {
  * `.chips` — styles.css:216. Filter chips on work.html, stack chips on
  * about.html, technology chips inside the project cards.
  */
-export function ChipRow({ children, sx }: ChipRowProps) {
+export const ChipRow = ({ children, sx }: ChipRowProps) => {
   return (
     <Box
       sx={[
@@ -56,7 +56,7 @@ export function ChipRow({ children, sx }: ChipRowProps) {
       {children}
     </Box>
   );
-}
+};
 
 /** `theme.layout.pillRadius`, as a literal so no theme callback is needed. */
 const PILL_RADIUS = `${geometry.pill}px`;
@@ -117,7 +117,7 @@ const chipStyles = (active: boolean, interactive: boolean) => ({
   }),
 });
 
-export default function Chip({ children, active = false, href, onClick, sx }: ChipProps) {
+export const Chip = ({ children, active = false, href, onClick, sx }: ChipProps) => {
   const interactive = Boolean(href) || Boolean(onClick);
 
   if (process.env.NODE_ENV !== 'production' && active && !interactive) {
@@ -153,4 +153,4 @@ export default function Chip({ children, active = false, href, onClick, sx }: Ch
       {children}
     </Box>
   );
-}
+};

@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react';
-import AppLink from './AppLink';
+import { AppLink } from './AppLink';
 import Box from '@mui/material/Box';
 import type { SxProps, Theme } from '@mui/material/styles';
 import { geometry } from '@/theme/tokens';
-import CornerArrow, { ARROW_CLASS } from './CornerArrow';
+import { CornerArrow, ARROW_CLASS } from './CornerArrow';
 
 export type TileVariant = 'default' | 'raised' | 'accent' | 'bare';
 
@@ -53,7 +53,7 @@ const FILL: Record<TileVariant, string | undefined> = {
  * sx is a plain object throughout — see the note in Bento.tsx for why a theme
  * callback would break the server/client boundary.
  */
-export default function Tile({
+export const Tile = ({
   children,
   span,
   spanTablet = 6,
@@ -64,7 +64,7 @@ export default function Tile({
   href,
   arrow,
   sx,
-}: TileProps) {
+}: TileProps) => {
   const isLink = Boolean(href);
   const showArrow = arrow ?? isLink;
   const isAccent = variant === 'accent';
@@ -132,4 +132,4 @@ export default function Tile({
       {showArrow && <CornerArrow size={isAccent ? 'large' : 'default'} />}
     </Box>
   );
-}
+};

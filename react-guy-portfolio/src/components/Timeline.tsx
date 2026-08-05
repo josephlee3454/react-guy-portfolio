@@ -23,7 +23,7 @@ export interface TimelineProps {
  * second column is not `:first-child`, so a borderless first item would leave
  * one column visibly missing its rule.
  */
-export default function Timeline({ children, columns = 1 }: TimelineProps) {
+export const Timeline = ({ children, columns = 1 }: TimelineProps) => {
   return (
     <Box
       component="ol"
@@ -60,7 +60,7 @@ export default function Timeline({ children, columns = 1 }: TimelineProps) {
       {children}
     </Box>
   );
-}
+};
 
 export interface TimelineItemProps {
   /**
@@ -79,7 +79,7 @@ export interface TimelineItemProps {
 }
 
 /** One `.tl li` — a 96px marker gutter beside the entry. */
-export function TimelineItem({ marker, dateTime, title, description }: TimelineItemProps) {
+export const TimelineItem = ({ marker, dateTime, title, description }: TimelineItemProps) => {
   return (
     <Box
       component="li"
@@ -112,4 +112,4 @@ export function TimelineItem({ marker, dateTime, title, description }: TimelineI
       </Box>
     </Box>
   );
-}
+};
