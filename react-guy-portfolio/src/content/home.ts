@@ -5,11 +5,12 @@
  * Fixed copy (spec §4 — the phrases chosen for register) is imported from
  * site.ts rather than retyped, so there is one copy of each.
  *
- * Nothing here asserts a fact about the site's owner. Names, metrics and the
- * marquee line are obvious placeholders, each marked TODO(copy).
+ * Everything below is real copy, transcribed from the design 4 mockup. There
+ * are no placeholders left except the project thumbnail, which is an unshot
+ * image rather than unwritten text and is handled in ProjectsTile.
  */
 
-import { ctaHref, fixedCopy } from './site';
+import { ctaHref, fixedCopy, fullName } from './site';
 
 /** A tile that is nothing but a labelled link: eyebrow, heading, whole-surface href. */
 export interface TileLink {
@@ -18,112 +19,110 @@ export interface TileLink {
   href: string;
 }
 
-/** One figure in the stats tile. The label is two mono lines in the design. */
-export interface HomeStat {
-  value: string;
-  label: readonly [string, string];
-}
-
-// TODO(copy): placeholder bio. One sentence about what you build and who you
-// build it for. The availability line that follows it is fixed copy — spec §4
-// says keep it as-is, and it is imported rather than repeated here.
-const heroBioLead = 'One line about what you build and who you build it for goes here.';
-
 export const hero = {
   /** Fixed copy — spec §4. */
   eyebrow: fixedCopy.heroEyebrow,
-  // TODO(copy): real name. The mockup's "Your Name." — placeholder, not a person.
-  name: 'Your Name',
+  name: fullName,
   /** The amber period after the name. Decoration, not copy. */
   accent: '.',
-  bio: `${heroBioLead} ${fixedCopy.availability}`,
+  /**
+   * ONE authored paragraph, stored whole.
+   *
+   * Do not rebuild it by appending `fixedCopy.availability`: the tail here is
+   * "Seattle, open to new roles." — lowercase and comma-joined to the city —
+   * which is a different string from the fixed "Open to new roles" that closes
+   * the Currently tile. Interpolating would silently change the sentence.
+   */
+  bio:
+    'I write the GraphQL API and the React that consumes it. Five years across the ' +
+    'stack — Java services at Amazon, now NestJS, PostgreSQL and React at ' +
+    'Alphaledger. Seattle, open to new roles.',
   /** The whole tile is the click target; the mockup points it at about. */
   href: '/about',
   /** Shipped at 800x1100 (spec §4 "Images"). */
   portraitSrc: '/assets/portrait.jpg',
-  // TODO(copy): describe the actual photograph once the real portrait ships.
-  portraitAlt: 'Portrait photograph',
+  portraitAlt: `Portrait of ${fullName}`,
 } as const;
 
-// TODO(copy): tile labels are the mockup's. They describe the destination
-// pages, so they hold until the sub-pages are written.
 export const credentials: TileLink = {
-  eyebrow: 'More about me',
-  title: 'Credentials',
+  eyebrow: 'Amazon · Alphaledger',
+  title: 'Experience',
   href: '/about',
 };
 
-// TODO(copy): as above.
 export const projects: TileLink = {
-  eyebrow: 'Showcase',
+  eyebrow: 'What I’ve shipped',
   title: 'Selected work',
   href: '/work',
 };
 
-// TODO(copy): as above.
 export const writing: TileLink = {
   eyebrow: 'Notes',
   title: 'Writing',
   href: '/writing',
 };
 
-// TODO(copy): as above. Anchors at the about page's services section, per the mockup.
+/**
+ * Anchors at the about page's stack section — `#stack`, not `#services`. The
+ * tile is about the tools, not an offer of services.
+ */
 export const services: TileLink = {
-  eyebrow: 'What I do',
-  title: 'Services',
-  href: '/about#services',
+  eyebrow: 'What I work in',
+  title: 'Stack',
+  href: '/about#stack',
 };
 
-// TODO(copy): as above. The chips themselves come from `socials` in site.ts.
+/** The chips themselves come from `socials` in site.ts. */
 export const profiles: TileLink = {
   eyebrow: 'Find me elsewhere',
   title: 'Profiles',
-  href: '/contact',
+  href: ctaHref,
 };
 
 /**
- * TODO(copy): THIS TILE MAY BE DELETED ENTIRELY.
+ * Row 3, cols 8-12 — the tile that used to hold fabricated figures.
  *
- * Spec §4: the mockup's `07 / +125 / +210` are fabricated and read as untrue on
- * a new portfolio — they must be replaced or the tile dropped. The owner has not
- * decided, so the tile renders em-dashes: real structure, no invented numbers.
- *
- * If it goes, the row it sits on loses 5 columns. Spec §7 requires every row to
- * sum to 12, so Services becomes span 6 and Profiles span 6 (6 + 6 = 12) and
- * this export plus its tile in page.tsx are deleted together.
- *
- * If it stays, use metrics that are true at this scale — repos shipped, talks
- * given — rather than client counts.
+ * It is now the current role stated plainly: eyebrow, heading, one paragraph.
+ * No metrics, so nothing here has to be invented to fill it.
  */
-export const stats: readonly HomeStat[] = [
-  { value: '—', label: ['Metric', 'to decide'] },
-  { value: '—', label: ['Metric', 'to decide'] },
-  { value: '—', label: ['Metric', 'to decide'] },
-];
+export const currently = {
+  eyebrow: 'Currently',
+  title: 'Software Developer at Alphaledger',
+  /**
+   * The closing sentence IS `fixedCopy.availability` verbatim, so it is
+   * interpolated rather than retyped — spec §4 keeps one copy of that phrase.
+   * (The hero's bio only looks similar; see the note on `hero.bio`.)
+   */
+  body:
+    'Enterprise blockchain for municipal bond issuance and trading. GraphQL, ' +
+    `PostgreSQL and React, in roughly equal measure. ${fixedCopy.availability}.`,
+} as const;
 
 /**
- * TODO(copy): PLACEHOLDER PHRASE — needs a real one before launch.
+ * The scrolling band — a list of technologies, each closed by the accent glyph.
  *
- * Spec §4 rejects the mockup's "Latest work and featured" as template filler
- * that "isn't a sentence and tells the reader nothing", and asks for a line that
- * does a job: availability, location, year. The three below are the slots for
- * exactly that; the current text names the slots instead of filling them,
- * because filling them would mean inventing a location.
+ * No emphasised word any more: the mockup's `<b>` is gone, so this is seven
+ * plain names and one repeated separator. MarqueeBand composes the markup;
+ * this module only supplies the words.
  */
 export const marquee = {
-  /** Text before the emphasised word. */
-  lead: 'Placeholder line — set availability,',
-  /** Emphasised: --bone at weight 800. */
-  emphasis: 'location',
-  /** Text after the emphasised word. */
-  trail: 'and year',
-  /** Accent glyph closing each repetition. Decoration, not copy. */
+  items: [
+    'React',
+    'GraphQL',
+    'NestJS',
+    'PostgreSQL',
+    'Java',
+    'AWS Lambda',
+    'TypeScript',
+  ],
+  /** Accent glyph after every name. Decoration, not copy. */
   glyph: '✦',
   /**
-   * Repetitions. The loop is only seamless while the track overflows the widest
-   * viewport — styles.css:73-79 uses six, and Marquee duplicates whatever it is given.
+   * Repetitions of the whole list. The loop is only seamless while the track
+   * overflows the widest viewport; the mockup uses four, and Marquee duplicates
+   * whatever it is given.
    */
-  repeat: 6,
+  repeat: 4,
 } as const;
 
 /** Fixed copy — spec §4. Do not swap for a generic equivalent. */

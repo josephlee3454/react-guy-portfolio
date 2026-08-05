@@ -18,13 +18,19 @@ target to match.
 - **You cannot see these render.** Reading the HTML tells you the DOM and the classes;
   it does not tell you whether the result looks right. Ask me to check the browser
   before assuming a layout works.
-- All content is placeholder — company names, dates, metrics, project titles, and post
-  titles are invented. Do not treat any of it as fact about me. Ask before writing copy.
+- Content on index / about / work / contact is **real** (Joseph Lee, Amazon Alexa,
+  Alphaledger). Do not rewrite or embellish it. Employment dates are still missing and
+  are marked on-page — do not invent them.
+- `testimonials.html` and `writing.html` are **entirely fabricated placeholder content.**
 - `assets/portrait.jpg` is the real photo, already colour-graded. Use it as-is; convert
   to WebP but do not re-filter it.
 
 ## Rules that break easily
 
+- **Tokens are semantic.** Never write a literal colour in a rule; never reintroduce a
+  name like `--tile` or `--ink`. Theme lives entirely in the `[data-theme="light"]` block.
+- **`--accent` is for fills, `--accent-ink` is for text.** Accent-coloured text using
+  `--accent` fails contrast in light mode.
 - **Every bento row must sum to 12 columns.** A 5+4 row leaves a ragged right edge.
   If a new tile won't fit, change a span rather than letting it wrap.
 - Text on the amber accent is `--ink`, never white. White on `#FF7A18` fails contrast.
@@ -37,4 +43,8 @@ target to match.
   grade or the tiles will look mismatched.
 - The contact form is markup only — no action, no handler, no validation.
 - The stats tile still reads `07 / +125 / +210`. Confirm real numbers or delete the tile.
-- Nav has no mobile menu below 1000px; the links are simply hidden.
+- Nav has no mobile menu below 1000px; the links are simply hidden. Six items now — this
+  needs a real menu, not just `display:none`.
+- The theme toggle does not persist. Store the choice and apply it before first paint.
+- **Every testimonial on `testimonials.html` is fabricated placeholder text.** Do not
+  present it as real, do not reuse it elsewhere, and flag it if asked to publish.

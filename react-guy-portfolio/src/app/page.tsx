@@ -7,19 +7,19 @@ import { ProjectsTile } from '@/features/home/ProjectsTile';
 import { WritingTile } from '@/features/home/WritingTile';
 import { ServicesTile } from '@/features/home/ServicesTile';
 import { ProfilesTile } from '@/features/home/ProfilesTile';
-import { StatsTile } from '@/features/home/StatsTile';
+import { CurrentlyTile } from '@/features/home/CurrentlyTile';
 import { MarqueeBand } from '@/features/home/MarqueeBand';
 
 import { socials } from '@/content/site';
 import {
   cta,
   credentials,
+  currently,
   hero,
   marquee,
   profiles,
   projects,
   services,
-  stats,
   writing,
 } from '@/content/home';
 
@@ -34,7 +34,7 @@ import {
  *
  *   rows 1-2   HERO 6 (row-span 2) | CREDENTIALS 3 | PROJECTS 3 (row-span 2)  = 12
  *              hero continues      | WRITING     3 | projects continues       = 12
- *   row 3      SERVICES 4 | PROFILES 3 | STATS 5                              = 12
+ *   row 3      SERVICES 4 | PROFILES 3 | CURRENTLY 5                          = 12
  *   row 4      MARQUEE 12                                                     = 12
  *   row 5      CTA 12                                                         = 12
  *
@@ -46,7 +46,7 @@ import {
  * map in §2. The map wins; §6's ordering is followed for the rest of the page.
  *
  * Tablet spans (<=1000px, a 6-column grid) come from styles.css:186-192:
- * hero/stats/marquee/cta go full width at 6, the other five sit at 3 in pairs.
+ * hero/currently/marquee/cta go full width at 6, the other five sit at 3 in pairs.
  * Mobile is one column and stacks in this DOM order.
  */
 export const Home = () => {
@@ -77,7 +77,7 @@ export const Home = () => {
 
       <ProfilesTile {...profiles} socials={socials} />
 
-      <StatsTile stats={stats} />
+      <CurrentlyTile {...currently} />
 
       {/* ---- row 4: 12 ---- */}
 

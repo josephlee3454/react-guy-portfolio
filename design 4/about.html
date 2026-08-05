@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About &mdash; Joseph Lee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<nav class="nav">
+  <a class="brand" href="index.html">josephlee<span>.</span></a>
+  <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="about.html" aria-current="page">About</a></li><li><a href="work.html">Work</a></li><li><a href="testimonials.html">Testimonials</a></li><li><a href="writing.html">Writing</a></li><li><a href="contact.html">Contact</a></li></ul>
+  <div class="nav-right">
+    <button class="theme-toggle" type="button" aria-label="Switch theme">&#9728;</button>
+    <a class="nav-cta" href="contact.html">Start here</a>
+  </div>
+</nav>
+<main class="bento">
+  <div class="page-head">
+    <h1>Both halves,<br>on purpose<em>.</em></h1>
+    <p class="lede">Five years building production services and the interfaces they power.
+    Three of them at Amazon on Alexa, two at Alphaledger writing the GraphQL layer in the
+    morning and the React consuming it in the afternoon. Seattle-based, open to new roles.</p>
+  </div>
+
+  <div class="tile about-photo" role="img" aria-label="Portrait of Joseph Lee"></div>
+
+  <div class="tile s7">
+    <p class="eyebrow">How I work</p>
+    <h2>I stopped picking a side.</h2>
+    <p style="color:var(--text-muted);font-size:15px;line-height:1.7;margin:16px 0 0;max-width:50ch">
+      Plenty of engineers describe themselves as full stack and mean they can read the
+      other half. I ship on both. At Alphaledger that means designing the schema and the
+      resolvers, then building the AG Grid views that hit them &mdash; and reviewing other
+      engineers&rsquo; frontend changes along the way.</p>
+    <p style="color:var(--text-muted);font-size:15px;line-height:1.7;margin:14px 0 0;max-width:50ch">
+      It also changes the decisions. Knowing what the grid needs shapes the resolver;
+      knowing what the query costs shapes the view. When I bring the team a tooling
+      recommendation it comes with a prototype attached, not an opinion.</p>
+  </div>
+
+  <div class="tile s12">
+    <p class="eyebrow">Experience</p>
+    <h2 style="padding-right:0">Where I&rsquo;ve been</h2>
+    <ol class="tl tl-1">
+      <li><time>2024 &ndash; NOW</time><div><h3>Software Developer &middot; Alphaledger</h3>
+        <p>Enterprise blockchain platform for municipal bond issuance and trading, Poulsbo WA.
+        Built and optimised the NestJS GraphQL layer &mdash; schema, resolvers, mutations,
+        DataLoaders. Designed and tuned PostgreSQL schemas for high-volume trading workflows.
+        Delivered React features with AG Grid, AG Charts and Material UI, and supported other
+        frontend engineers through review and pairing. Full lifecycle on an Agile team,
+        including a React Native application from concept through launch.</p></div></li>
+      <li><time>2021 &ndash; 2024</time><div><h3>Software Developer &middot; Amazon (Alexa)</h3>
+        <p>Java services on AWS Lambda behind API Gateway, with S3, CloudWatch and
+        least-privilege IAM. Designed the DynamoDB solution for large-scale processing and
+        secure storage of customer-sensitive data behind voice authentication, and the audit
+        system that detected fraud and integrity drift around it. Built Alexa skills
+        integrated with LLMs for enterprise clients including Verizon and T-Mobile.</p></div></li>
+      <li><time>2011 &ndash; 2015</time><div><h3>Vehicle Commander &middot; U.S. Marine Corps</h3>
+        <p>Led a unified anti-armor team at Camp Pendleton, running operations and training
+        under pressure, and instructed units outside my own on job-specific tactics.
+        Meritorious Mast at Camp Pendleton; Certificate of Commendation, Afghanistan;
+        Certificate of Appreciation, Yemen.</p></div></li>
+    </ol>
+  </div>
+
+  <div class="page-head" id="stack" style="padding-bottom:6px">
+    <h2 style="font-family:var(--display);font-weight:800;font-size:clamp(28px,3.4vw,44px);letter-spacing:-.03em;margin:0;padding-right:0">Stack<em style="font-style:normal;color:var(--accent-ink)">.</em></h2>
+    <p class="lede" style="margin-top:14px">Filled chips are what I&rsquo;d lead with.
+    Outlined ones I use regularly and can hold my own in.</p>
+  </div>
+
+  <div class="stack-row">
+    <div class="tile sk">
+      <span class="ico"><svg viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="16" rx="2.5"/><path d="M2.5 9h19M6 6.5h.01M8.5 6.5h.01"/></svg></span>
+      <p class="eyebrow">Frontend</p>
+      <h2>Interfaces</h2>
+      <div class="chips"><b class="on">React</b><b class="on">TypeScript</b><b class="on">Material UI</b>
+        <b>AG Grid</b><b>AG Charts</b><b>React Native</b></div>
+      <p class="note">Data-dense trading views, and code review for the rest of the
+      frontend team.</p>
+    </div>
+    <div class="tile sk">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M3 5h18v5H3zM3 14h18v5H3z"/><path d="M6.5 7.5h.01M6.5 16.5h.01"/></svg></span>
+      <p class="eyebrow">Backend</p>
+      <h2>Services &amp; APIs</h2>
+      <div class="chips"><b class="on">NestJS</b><b class="on">GraphQL</b><b class="on">Node.js</b>
+        <b>Java</b><b>REST</b><b>Auth0 / SSO</b><b>Microservices</b></div>
+      <p class="note">Schema, resolvers, mutations and DataLoaders at Alphaledger;
+      three years of Java services before that.</p>
+    </div>
+    <div class="tile sk">
+      <span class="ico"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v13c0 1.7 3.6 3 8 3s8-1.3 8-3v-13"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span>
+      <p class="eyebrow">Data</p>
+      <h2>Schemas &amp; queries</h2>
+      <div class="chips"><b class="on">PostgreSQL</b><b class="on">SQL</b><b class="on">DynamoDB</b>
+        <b>TypeORM</b><b>Query tuning</b><b>DBeaver</b></div>
+      <p class="note">Relational modelling for high-volume trading workflows; DynamoDB
+      for sensitive data at Amazon scale.</p>
+    </div>
+    <div class="tile sk">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M17.5 19H7a4.5 4.5 0 0 1-.7-8.95A6 6 0 0 1 17.8 11a4 4 0 0 1-.3 8z"/></svg></span>
+      <p class="eyebrow">Cloud</p>
+      <h2>AWS</h2>
+      <div class="chips"><b class="on">Lambda</b><b class="on">API Gateway</b><b>S3</b>
+        <b>CloudWatch</b><b>IAM</b><b>DynamoDB</b></div>
+      <p class="note">Serverless by default. Least-privilege IAM and CloudWatch
+      monitoring as part of the build, not after it.</p>
+    </div>
+  </div>
+
+  <div class="tile s6">
+    <p class="eyebrow">How I got here</p>
+    <h2>No CS degree.</h2>
+    <p style="color:var(--text-muted);font-size:15px;line-height:1.7;margin:14px 0 0;max-width:46ch">
+      Code Fellows, then Coding Dojo, then the Amazon Apprenticeship in full stack web
+      development &mdash; which is also how I got to Alexa. Five years of production work
+      since. I mention it because it explains the shape of my experience, not because I
+      think it needs defending.</p>
+    <div class="chips" style="margin-top:18px"><b>Amazon Apprenticeship</b><b>Coding Dojo</b><b>Code Fellows</b><b>Hackathon accolade, Amazon</b></div>
+  </div>
+
+  <div class="tile s6">
+    <p class="eyebrow">Before software</p>
+    <h2>Four years in the Marine Corps.</h2>
+    <p style="color:var(--text-muted);font-size:15px;line-height:1.7;margin:14px 0 0;max-width:46ch">
+      I led an anti-armor team and taught tactics to units outside my own. The transferable
+      part isn&rsquo;t discipline &mdash; it&rsquo;s being calm when something is genuinely
+      on fire, and knowing that the person who can explain the thing is worth more than the
+      person who merely knows it.</p>
+    <div class="chips" style="margin-top:18px"><b>Meritorious Mast, Camp Pendleton CA</b><b>Certificate of Commendation, Afghanistan</b><b>Certificate of Appreciation, Yemen</b></div>
+  </div>
+
+  <a class="tile cta" href="contact.html">
+    <h2>So what are we building?</h2>
+    <span class="arrow" aria-hidden="true">&#8599;</span>
+  </a>
+</main>
+<footer class="foot">
+  <span>&copy; 2026 Joseph Lee</span>
+  <span><a href="index.html">Home</a> &middot; <a href="about.html">About</a> &middot; <a href="work.html">Work</a> &middot; <a href="testimonials.html">Testimonials</a> &middot; <a href="writing.html">Writing</a> &middot; <a href="contact.html">Contact</a></span>
+  <span>joseph.lee3454@gmail.com</span>
+</footer>
+<script>
+(function(){
+  var root=document.documentElement, btn=document.querySelector('.theme-toggle');
+  function set(t){root.setAttribute('data-theme',t);btn.textContent=t==='light'?'\u263E':'\u2600';
+    btn.setAttribute('aria-label','Switch to '+(t==='light'?'dark':'light')+' theme');}
+  set(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  btn.addEventListener('click',function(){
+    set(root.getAttribute('data-theme')==='light'?'dark':'light');});
+})();
+</script>
+</body>
+</html>

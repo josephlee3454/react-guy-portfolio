@@ -2,11 +2,12 @@ import type { Metadata, Viewport } from 'next';
 import { ThemeRegistry } from '@/theme/ThemeRegistry';
 import { dark, light } from '@/theme/tokens';
 import { fontClassNames } from './fonts';
+import { siteDescription, siteTitle } from '@/content/site';
 
-// TODO(copy): real title and description — placeholder until confirmed.
+// Both strings live in content/site.ts, alongside the rest of the site's copy.
 export const metadata: Metadata = {
-  title: 'Portfolio',
-  description: 'Full stack engineer.',
+  title: siteTitle,
+  description: siteDescription,
 };
 
 // Per-scheme so the browser chrome matches the page it frames.

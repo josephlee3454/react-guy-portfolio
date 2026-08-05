@@ -7,21 +7,24 @@ export interface SocialItem {
   /** Two or three characters — "GH", "LI", "X", "IG". Also the accessible name. */
   label: string;
   /**
-   * Optional, and deliberately so.
-   *
-   * NESTING TRAP: on index.html this row sits inside the profiles tile, which
-   * is itself a link. An `<a>` inside an `<a>` is invalid HTML — the browser
-   * closes the outer anchor at the inner one, breaking the tile's click target
-   * and its tab order. So inside a `<Tile href="...">`, pass items with no
-   * `href` and they render as non-interactive `<span>`s (exactly what the
-   * mockup does there). Only pass `href` where the row stands on its own, as
-   * on contact.html.
+   * Only honoured when the row is `interactive`. Ignored otherwise, so an href
+   * can never turn into an anchor nested inside a linked tile by accident.
    */
   href?: string;
 }
 
 export interface SocialRowProps {
   items: SocialItem[];
+  /**
+   * Render the chips as links. Defaults to FALSE, which is the safe case.
+   *
+   * The default is off rather than on because the failure it prevents is not
+   * loud: an `<a>` inside an `<a>` produces valid-looking JSX, renders fine on
+   * the server, and only breaks once the browser repairs the DOM and React
+   * finds the tree it hydrated no longer matches. Opting in makes the one
+   * standalone usage explicit and keeps every nested one correct by default.
+   */
+  interactive?: boolean;
   sx?: SxProps<Theme>;
 }
 
@@ -56,11 +59,6 @@ const chipStyles = (interactive: boolean) => ({
       borderColor: 'surface.borderHover',
     },
     // The global focus ring squares the pill off at border-radius:8px.
-    '&:focus-visible': {
-      outline: '2px solid var(--mui-palette-accentInk)',
-      outlineOffset: 2,
-      borderRadius: '50%',
-    },
   }),
 });
 
@@ -73,7 +71,18 @@ const chipStyles = (interactive: boolean) => ({
  * bottom with the heading. The auto margin absorbs the free space and pins the
  * row to the top of the tile.
  */
-export const SocialRow = ({ items, sx }: SocialRowProps) => {
+export const SocialRow = ({ items, interactive = false, sx }: SocialRowProps) => {
+  if (process.env.NODE_ENV !== 'production' && !interactive) {
+    const linked = items.filter((item) => item.href).map((item) => item.label);
+    if (linked.length) {
+      console.warn(
+        `[SocialRow] ${linked.join(', ')} supplied an href but the row is not interactive, ` +
+          'so it renders as plain text. Pass interactive to make them links — but only ' +
+          'where the row is NOT inside a linked Tile, since that nests one anchor in another.',
+      );
+    }
+  }
+
   return (
     <Box
       component="ul"
@@ -91,7 +100,7 @@ export const SocialRow = ({ items, sx }: SocialRowProps) => {
     >
       {items.map((item) => (
         <Box component="li" key={item.label} sx={{ display: 'flex' }}>
-          {item.href ? (
+          {interactive && item.href ? (
             <Box component={AppLink} href={item.href} sx={chipStyles(true)}>
               {item.label}
             </Box>

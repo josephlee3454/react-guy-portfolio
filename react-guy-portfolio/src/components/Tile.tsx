@@ -117,7 +117,7 @@ export const Tile = ({
           ...(isLink && {
             '&:hover': {
               transform: `translateY(${geometry.lift})`,
-              borderColor: isAccent ? 'primary.light' : 'surface.lineHover',
+              borderColor: isAccent ? 'primary.light' : 'surface.borderHover',
               ...(isAccent && { backgroundColor: 'primary.light' }),
               [`& .${ARROW_CLASS}`]: {
                 transform: 'rotate(45deg)',

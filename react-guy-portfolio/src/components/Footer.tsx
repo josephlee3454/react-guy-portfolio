@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import type { SxProps, Theme } from '@mui/material/styles';
 
-import { navItems } from '@/content/site';
+import { fullName, navItems } from '@/content/site';
 
 /** Same set and order as the nav (spec §7), from the shared content module. */
 const FOOTER_LINKS = navItems;
@@ -53,8 +53,7 @@ export const Footer = ({ email, year, sx }: FooterProps) => {
         ...(Array.isArray(sx) ? sx : [sx]),
       ]}
     >
-      {/* TODO(copy): name in the copyright line is the mockup placeholder. */}
-      <Typography variant="mono">&copy; {displayYear} Your Name</Typography>
+      <Typography variant="mono">&copy; {displayYear} {fullName}</Typography>
 
       <Typography
         variant="mono"

@@ -47,9 +47,15 @@ export const components: Components<Omit<Theme, 'components'>> = {
       // Spec §5: a focus ring on every link. next/link renders a bare <a>,
       // so this targets elements rather than MUI classes.
       'a:focus-visible, button:focus-visible, [tabindex]:focus-visible': {
+        /*
+         * No `borderRadius` here. It would apply to the focused ELEMENT, not to
+         * the outline — every tile would snap from var(--r) to 8px on focus, and
+         * the nav pill from 999px. Browsers already draw `outline` following the
+         * element's own radius, so a ring on a pill, a circle and a 26px tile
+         * are all correct with nothing per-component.
+         */
         outline: `2px solid ${theme.vars.palette.accentInk}`,
         outlineOffset: 3,
-        borderRadius: 8,
       },
       'a:focus:not(:focus-visible)': { outline: 'none' },
 
@@ -92,7 +98,6 @@ export const components: Components<Omit<Theme, 'components'>> = {
         '&:focus-visible': {
           outline: `2px solid ${theme.vars.palette.accentInk}`,
           outlineOffset: 3,
-          borderRadius: 8,
         },
       }),
     },

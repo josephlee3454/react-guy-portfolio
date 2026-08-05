@@ -106,7 +106,9 @@ export const Hero = ({
           // `inset` sets all four sides; clearing `left` on wider viewports is
           // what pins the photo to the right edge and lets `width` size it.
           left: { xs: 0, sm: 'auto' },
-          width: { xs: '100%', sm: '52%' },
+          // styles.css:400 — the `/* v5 */` block at the end of the file
+          // narrows the photo from 52% to 49%.
+          width: { xs: '100%', sm: '49%' },
           // Legibility: at xs the headline sits on top of the photo.
           opacity: { xs: 0.42, sm: 1 },
           backgroundImage: `url("${portraitSrc}")`,
@@ -130,12 +132,24 @@ export const Hero = ({
         absolutely positioned inside the same tile, so without a stacking
         context of its own the copy would render underneath it.
       */}
-      <Box sx={{ position: 'relative', maxWidth: { xs: '100%', sm: '52%' } }}>
+      {/* styles.css:399 — the v5 block widens the copy column from 52% to 55%. */}
+      <Box sx={{ position: 'relative', maxWidth: { xs: '100%', sm: '55%' } }}>
         {/* The tile is dark in both schemes, so the eyebrow cannot take the
             scheme's muted text — in light mode that is near-black on near-black. */}
         <Eyebrow sx={{ color: 'hero.muted' }}>{eyebrow}</Eyebrow>
 
-        <Typography variant="h1" sx={{ margin: '0 0 16px' }}>
+        {/*
+          fontSize overrides the theme's h1 variant (clamp(38px,5vw,66px)).
+          styles.css ends with a `v5` block that re-declares `.hero h1` at
+          clamp(38px,4.3vw,56px), and that block wins in the mockup. The theme
+          variant is shared with nothing else on this page but is not this
+          page's to redefine, so the override lands here, on the one element it
+          applies to.
+        */}
+        <Typography
+          variant="h1"
+          sx={{ margin: '0 0 16px', fontSize: 'clamp(38px, 4.3vw, 56px)' }}
+        >
           {name}
           {/*
             primary.main, NOT accentInk. accentInk darkens to #B84E08 in light

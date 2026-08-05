@@ -104,16 +104,11 @@ const chipStyles = (active: boolean, interactive: boolean) => ({
     transition: `color ${HOVER_DURATION} ease, border-color ${HOVER_DURATION} ease, background-color ${HOVER_DURATION} ease`,
     '&:hover': {
       color: active ? 'primary.contrastText' : 'text.primary',
-      borderColor: active ? 'primary.light' : 'surface.lineHover',
+      borderColor: active ? 'primary.light' : 'surface.borderHover',
       ...(active && { backgroundColor: 'primary.light' }),
     },
     // The global ring in components.ts forces border-radius:8px, which reads
     // as a rounded rectangle around a pill. Restated here at the pill radius.
-    '&:focus-visible': {
-      outline: '2px solid var(--mui-palette-accentInk)',
-      outlineOffset: 2,
-      borderRadius: PILL_RADIUS,
-    },
   }),
 });
 

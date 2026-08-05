@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Testimonials &mdash; Joseph Lee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<nav class="nav">
+  <a class="brand" href="index.html">josephlee<span>.</span></a>
+  <ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="work.html">Work</a></li><li><a href="testimonials.html" aria-current="page">Testimonials</a></li><li><a href="writing.html">Writing</a></li><li><a href="contact.html">Contact</a></li></ul>
+  <div class="nav-right">
+    <button class="theme-toggle" type="button" aria-label="Switch theme">&#9728;</button>
+    <a class="nav-cta" href="contact.html">Start here</a>
+  </div>
+</nav>
+<main class="bento">
+
+  <div class="page-head">
+    <h1>What it&rsquo;s like<br>to work with me<em>.</em></h1>
+    <p class="lede">Seven people who paid me, in their words. Each one names the project
+    so you can match it against the case studies.</p>
+  </div>
+
+  <div class="tile q q-lead s7">
+    <p class="tag">Billing rewrite &middot; 2025</p>
+    <blockquote>We had three engineers tell us the invoicing system had to be rebuilt from zero and it would take a year. He shipped it in four months with no downtime and no discrepancies, and the runbook he left behind meant we didn’t need him afterwards. That last part is rarer than the first.</blockquote>
+    <div class="who"><span class="av">MR</span>
+      <div><b>Placeholder Name</b><small>VP Engineering, Company</small></div></div>
+  </div>
+
+  <div class="tile q s5">
+    <p class="tag">Fractional lead &middot; 2024</p>
+    <blockquote>He is the only contractor we’ve had who pushed back on scope before signing. Turned out he was right about the part we’d underestimated.</blockquote>
+    <div class="who"><span class="av">AO</span>
+      <div><b>Placeholder Name</b><small>Founder, Company</small></div></div>
+  </div>
+
+  <div class="tile q s4">
+    <p class="tag">Cloud costs &middot; 2024</p>
+    <blockquote>Cut our monthly bill by seventy percent without touching product code. He explained every change well enough that we could maintain it ourselves.</blockquote>
+    <div class="who"><span class="av">JT</span>
+      <div><b>Placeholder Name</b><small>CTO, Company</small></div></div>
+  </div>
+
+  <div class="tile q s4">
+    <p class="tag">Rescue &middot; 2022</p>
+    <blockquote>He inherited a codebase nobody on my team would open. Six weeks later we were deploying daily. No drama, no rewrite pitch.</blockquote>
+    <div class="who"><span class="av">SK</span>
+      <div><b>Placeholder Name</b><small>Head of Product, Company</small></div></div>
+  </div>
+
+  <div class="tile q s4">
+    <p class="tag">Design system &middot; 2023</p>
+    <blockquote>Four product teams, one component library, and somehow no migration fire drills. He thought about versioning before anyone asked.</blockquote>
+    <div class="who"><span class="av">DN</span>
+      <div><b>Placeholder Name</b><small>Staff Designer, Company</small></div></div>
+  </div>
+
+  <div class="tile q s6">
+    <p class="tag">Field ops app &middot; 2024</p>
+    <blockquote>Our crews work in places with no signal. He was the first person who treated that as a data modelling problem instead of an edge case to apologise for, and the app has worked in the field since day one.</blockquote>
+    <div class="who"><span class="av">LP</span>
+      <div><b>Placeholder Name</b><small>Operations Director, Company</small></div></div>
+  </div>
+
+  <div class="tile q s6">
+    <p class="tag">Full-time interim &middot; 2023</p>
+    <blockquote>Joined for a quarter to cover a gap and ended up rewriting how we do code review. Half of what he set up is still how the team works two years later.</blockquote>
+    <div class="who"><span class="av">CW</span>
+      <div><b>Placeholder Name</b><small>Engineering Manager, Company</small></div></div>
+  </div>
+
+  <a class="tile cta" href="contact.html">
+    <h2>So what are we building?</h2>
+    <span class="arrow" aria-hidden="true">&#8599;</span>
+  </a>
+
+</main>
+<footer class="foot">
+  <span>&copy; 2026 Joseph Lee</span>
+  <span><a href="index.html">Home</a> &middot; <a href="about.html">About</a> &middot; <a href="work.html">Work</a> &middot; <a href="testimonials.html">Testimonials</a> &middot; <a href="writing.html">Writing</a> &middot; <a href="contact.html">Contact</a></span>
+  <span>joseph.lee3454@gmail.com</span>
+</footer>
+<script>
+(function(){
+  var root=document.documentElement, btn=document.querySelector('.theme-toggle');
+  function set(t){root.setAttribute('data-theme',t);btn.textContent=t==='light'?'\u263E':'\u2600';
+    btn.setAttribute('aria-label','Switch to '+(t==='light'?'dark':'light')+' theme');}
+  set(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  btn.addEventListener('click',function(){
+    set(root.getAttribute('data-theme')==='light'?'dark':'light');});
+})();
+</script>
+</body>
+</html>
