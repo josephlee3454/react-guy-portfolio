@@ -5,7 +5,7 @@ import { alpha } from '@mui/material/styles';
 import { Eyebrow } from '@/components/Eyebrow';
 import { SocialRow, type SocialItem } from '@/components/SocialRow';
 import { Tile } from '@/components/Tile';
-import { tokens } from '@/theme/tokens';
+import { shared } from '@/theme/tokens';
 
 export interface DirectDetailsProps {
   availabilityLabel: string;
@@ -44,7 +44,7 @@ const statusDotSx = {
   height: 8,
   borderRadius: '50%',
   backgroundColor: 'primary.main',
-  boxShadow: `0 0 0 4px ${alpha(tokens.accent, 0.18)}`,
+  boxShadow: `0 0 0 4px ${alpha(shared.accent, 0.18)}`,
   flexShrink: 0,
 };
 
@@ -59,7 +59,7 @@ const bigLinkSx = {
   textDecoration: 'none',
   wordBreak: 'break-word',
   transition: 'color .2s ease',
-  '&:hover': { color: 'primary.main' },
+  '&:hover': { color: 'accentInk' },
 };
 
 /** The gap between blocks two through four. The first block sits flush. */

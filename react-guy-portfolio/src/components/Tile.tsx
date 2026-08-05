@@ -106,8 +106,11 @@ export const Tile = ({
           // ink rather than the divider colour.
           ...(isAccent && {
             [`& .${ARROW_CLASS}`]: {
-              borderColor: 'rgba(15, 18, 17, .35)',
+              // The accent tile sets its own ring — a tint of the ink colour
+              // rather than CornerArrow's currentColor default, so full opacity.
+              borderColor: 'rgba(20, 24, 26, .35)',
               color: 'primary.contrastText',
+              opacity: 1,
             },
           }),
 
@@ -121,6 +124,9 @@ export const Tile = ({
                 backgroundColor: isAccent ? 'primary.contrastText' : 'primary.main',
                 borderColor: isAccent ? 'primary.contrastText' : 'primary.main',
                 color: isAccent ? 'primary.main' : 'primary.contrastText',
+                // Clears CornerArrow's resting 0.55 so the fill reads at full
+                // strength — this is the design's one motion signature.
+                opacity: 1,
               },
             },
           }),

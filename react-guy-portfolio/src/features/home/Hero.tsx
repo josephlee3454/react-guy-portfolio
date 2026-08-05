@@ -44,7 +44,7 @@ export interface HeroProps {
  *      it: Safari only unprefixed mask-image in 15.4, and without the prefix
  *      older WebKit renders no mask at all — i.e. a hard-edged rectangle,
  *      exactly the failure the spec is guarding against.
- *   2. An `::after` overlay of `linear-gradient(to top, var(--tile) 2%,
+ *   2. An `::after` overlay of `linear-gradient(to top, var(--mui-palette-hero-bg) 2%,
  *      transparent 42%)` sinks the bottom edge into the tile.
  *   3. `background-position: 52% 18%` keeps the face in frame as the tile
  *      changes width, since `cover` crops from the centre by default.
@@ -85,8 +85,17 @@ export const Hero = ({
       rowSpan={rowSpan}
       align="end"
       href={href}
-      // styles.css:90 / :197 — 440px, tightening to 430px in the single-column band.
-      sx={{ minHeight: { xs: 430, sm: 440 } }}
+      sx={{
+        // styles.css:90 / :197 — 440px, tightening to 430px in the single-column band.
+        minHeight: { xs: 430, sm: 440 },
+        // Spec §8: the hero stays dark in BOTH schemes. The portrait is a
+        // cross-processed photo with teal shadows; on a pale tile it reads as a
+        // heavy rectangle pasted onto paper and the bottom fade stops working.
+        // These tokens are scheme-independent by design.
+        backgroundColor: 'hero.bg',
+        borderColor: 'hero.border',
+        color: 'hero.text',
+      }}
     >
       <Box
         role="img"
@@ -111,7 +120,7 @@ export const Hero = ({
             content: '""',
             position: 'absolute',
             inset: 0,
-            background: 'linear-gradient(to top, var(--tile) 2%, transparent 42%)',
+            background: 'linear-gradient(to top, var(--mui-palette-hero-bg) 2%, transparent 42%)',
           },
         }}
       />
@@ -122,10 +131,19 @@ export const Hero = ({
         context of its own the copy would render underneath it.
       */}
       <Box sx={{ position: 'relative', maxWidth: { xs: '100%', sm: '52%' } }}>
-        <Eyebrow>{eyebrow}</Eyebrow>
+        {/* The tile is dark in both schemes, so the eyebrow cannot take the
+            scheme's muted text — in light mode that is near-black on near-black. */}
+        <Eyebrow sx={{ color: 'hero.muted' }}>{eyebrow}</Eyebrow>
 
         <Typography variant="h1" sx={{ margin: '0 0 16px' }}>
           {name}
+          {/*
+            primary.main, NOT accentInk. accentInk darkens to #B84E08 in light
+            mode for contrast against a pale background — but this sits on the
+            always-dark hero, where the undarkened fill colour is the correct
+            and readable one. This is the one place the accent-as-text rule
+            inverts.
+          */}
           {accent !== undefined && (
             <Box component="em" sx={{ fontStyle: 'normal', color: 'primary.main' }}>
               {accent}
@@ -133,8 +151,8 @@ export const Hero = ({
           )}
         </Typography>
 
-        {/* body1 is 15px — the spec's contrast floor for --muted on --tile. */}
-        <Typography variant="body1" sx={{ margin: 0, maxWidth: '32ch', color: 'text.secondary' }}>
+        {/* body1 is 15px — the spec's contrast floor for muted text on a surface. */}
+        <Typography variant="body1" sx={{ margin: 0, maxWidth: '32ch', color: 'hero.muted' }}>
           {bio}
         </Typography>
       </Box>

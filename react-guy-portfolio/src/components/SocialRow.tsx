@@ -1,7 +1,7 @@
 import { AppLink } from './AppLink';
 import Box from '@mui/material/Box';
 import type { SxProps, Theme } from '@mui/material/styles';
-import { fonts, tokens } from '@/theme/tokens';
+import { fonts } from '@/theme/tokens';
 
 export interface SocialItem {
   /** Two or three characters — "GH", "LI", "X", "IG". Also the accessible name. */
@@ -53,11 +53,11 @@ const chipStyles = (interactive: boolean) => ({
     transition: `color ${HOVER_DURATION} ease, border-color ${HOVER_DURATION} ease`,
     '&:hover': {
       color: 'text.primary',
-      borderColor: 'surface.lineHover',
+      borderColor: 'surface.borderHover',
     },
     // The global focus ring squares the pill off at border-radius:8px.
     '&:focus-visible': {
-      outline: `2px solid ${tokens.accent}`,
+      outline: '2px solid var(--mui-palette-accentInk)',
       outlineOffset: 2,
       borderRadius: '50%',
     },

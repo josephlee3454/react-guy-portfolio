@@ -80,7 +80,7 @@ export const Nav = ({ route, brand = siteBrand, sx }: NavProps) => {
         }}
       >
         {brand}
-        <Box component="span" sx={{ color: 'primary.main' }}>
+        <Box component="span" sx={{ color: 'accentInk' }}>
           .
         </Box>
       </Box>

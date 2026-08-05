@@ -62,7 +62,7 @@ export const PageHead = ({
       <Typography variant="pageTitle">
         {title}
         {accent !== undefined && (
-          <Box component="em" sx={{ fontStyle: 'normal', color: 'primary.main' }}>
+          <Box component="em" sx={{ fontStyle: 'normal', color: 'accentInk' }}>
             {accent}
           </Box>
         )}
