@@ -13,10 +13,18 @@
  * The page is an argument for withholding, and each string states a different
  * half of it. Shortening any one of them turns a position into an excuse.
  *
- * NO NAMES AND NO CONTACT DETAILS APPEAR HERE, deliberately — the three referees
- * are described only by role and employer. That is the page keeping its own
- * promise, not an unfinished draft: do not add placeholder names, initials or
- * "available on request" stand-ins to `referees`.
+ * NO CONTACT DETAILS APPEAR HERE. Two referees are now named, because each
+ * published a recommendation under their own name on LinkedIn and the tile
+ * quotes it and links to the source — that is pointing at what someone chose to
+ * publish, not disclosing what was given in confidence, which is the line the
+ * page's argument actually draws. All three are named on that basis.
+ *
+ * Still forbidden: an email, a phone number, or a name for a referee who has
+ * not published one. Do not add placeholder names or "available on request"
+ * stand-ins to `referees`.
+ *
+ * NOTE: `pageHead.lede` and `banner.body` still read as though nobody is named.
+ * They need redrafting in Joseph's voice — flagged, not yet done.
  *
  * The LinkedIn destination is imported from ./site rather than retyped. It is
  * the same profile the contact page and the profiles row point at, and three
@@ -25,14 +33,26 @@
 
 import { linkedin } from './site';
 
-/** One of the three `s4` tiles. Role and employer only — see the note above. */
+/** One of the three `s4` tiles. */
 export interface Referee {
   /** `Current · Alphaledger` — tenure, then employer. */
   eyebrow: string;
-  /** The referee's role, which is as specific as this page gets. */
+  /** The referee's role. */
   title: string;
   /** What they are placed to speak to. */
   body: string;
+  /**
+   * A recommendation this person has already published under their own name.
+   *
+   * Optional, and only ever a quotation of something ALREADY PUBLIC — a
+   * LinkedIn recommendation the author posted themselves. That is what makes it
+   * consistent with the page's argument rather than an exception to it: the
+   * page withholds contact details it was given in confidence, and points at
+   * what its authors chose to publish. Never put a private reference here.
+   */
+  quote?: string;
+  /** The public profile the quote came from. Required whenever `quote` is set. */
+  profile?: { label: string; href: string };
 }
 
 /** One of the two `s6` tiles at the foot of the page. */
@@ -78,28 +98,76 @@ export const banner = {
 
 // ------------------------------------------------------------------ referees
 
-/** Three tiles, 4 + 4 + 4. Keyed on `title`, which is unique; the first two share an eyebrow. */
+/**
+ * Three tiles, 4 + 4 + 4. Keyed on `title`, which is unique — the first two
+ * share an eyebrow, so the role is what distinguishes them.
+ *
+ * All three carry a published recommendation and link to its source. Adding a
+ * referee without one changes the row's shape; see the note in RefereeRow.
+ */
 export const referees: readonly Referee[] = [
   {
     eyebrow: 'Current · Alphaledger',
-    title: 'Engineering manager',
-    body:
-      'Day-to-day output, how I take feedback, and whether the GraphQL and ' +
-      'PostgreSQL work held up as trading volume grew.',
+    title: 'Senior engineer',
+    /*
+     * Named, as all three now are. He published this recommendation under his
+     * own name, so attributing it is quoting him accurately rather than
+     * disclosing something — the page's rule is about details given in
+     * confidence, not about what a referee chose to put on their own profile.
+     */
+    body: 'Bryant Davis · Senior Engineer, Alphaledger',
+    quote:
+      'Joseph is one of the most dedicated and hardworking engineers I have had ' +
+      'the opportunity to work with. He consistently demonstrates a strong sense ' +
+      'of ownership, delivers high-quality results, and approaches complex ' +
+      'challenges with a positive, solutions-oriented mindset. Beyond his ' +
+      'technical expertise, Joseph is an exceptional collaborator who builds ' +
+      'strong working relationships across engineering, product, and design.',
+    profile: {
+      label: 'linkedin.com/in/bryantdavis-sd',
+      href: 'https://www.linkedin.com/in/bryantdavis-sd',
+    },
   },
   {
     eyebrow: 'Current · Alphaledger',
-    title: 'Frontend engineer',
-    body:
-      'What my code review is actually like to receive, and whether “full stack” ' +
-      'holds up from the side that would notice if it didn’t.',
+    title: 'Project manager',
+    /* Named for the same reason as Bryant above — he published this himself. */
+    body: 'Brian Berndtson · Project Manager, Alphaledger',
+    /*
+     * Quoted verbatim, including "Alpha Ledger Technologies" spelled as three
+     * words — that is how the author wrote it, and correcting someone's own
+     * recommendation to match the site's house spelling would be editing a
+     * quotation.
+     */
+    quote:
+      'Managing Joe across several products at Alpha Ledger Technologies gave me ' +
+      'a front-row seat to his professionalism, adaptability, and technical ' +
+      'ability. Regardless of the project or challenge, Joe quickly learned the ' +
+      'business domain, became productive faster than expected, and consistently ' +
+      'delivered high-quality work.',
+    profile: {
+      label: 'linkedin.com/in/bberndtson',
+      href: 'https://www.linkedin.com/in/bberndtson',
+    },
   },
   {
-    eyebrow: 'Former · Amazon',
-    title: 'Alexa team',
-    body:
-      'The voice-authentication data work and the audit system, including how ' +
-      'the legal and compliance review went.',
+    /* Former, not current: he worked with Joseph at Alphaledger and is now at AWS. */
+    eyebrow: 'Former · Alphaledger',
+    title: 'Software engineer',
+    /* The eyebrow says where they overlapped; the attribution says where he is now. */
+    body: 'Zach Spriggs · Software Developer, AWS',
+    quote:
+      'I had the pleasure of working alongside Joseph at AlphaLedger, and I can ' +
+      'confidently say he’s one of the hardest working engineers I’ve met. He’s ' +
+      'constantly investing time into improving his skills, whether that’s ' +
+      'learning new technologies, deepening his understanding of existing ones, ' +
+      'or practicing outside of work to become a better developer. That ' +
+      'dedication shows in the quality of his work and how quickly he’s able to ' +
+      'contribute to new projects.',
+    profile: {
+      label: 'linkedin.com/in/zachspriggs',
+      href: 'https://www.linkedin.com/in/zachspriggs',
+    },
   },
 ];
 
