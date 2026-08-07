@@ -35,7 +35,7 @@ export const hero = {
    */
   bio:
     'I write the GraphQL API and the React that consumes it. Five years across the ' +
-    'stack — Java services at Amazon, now NestJS, PostgreSQL and React at ' +
+    'stack: Java services at Amazon, then React, NestJS and PostgreSQL at ' +
     'Alphaledger. Seattle, open to new roles.',
   /** The whole tile is the click target; the mockup points it at about. */
   href: '/about',
